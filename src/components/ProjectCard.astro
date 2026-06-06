@@ -1,0 +1,90 @@
+---
+import type { CollectionEntry } from "astro:content";
+import { entrySlug } from "@/lib/content";
+import { useTranslations, type Lang } from "@/i18n/ui";
+
+interface Props { project: CollectionEntry<"projects">; lang: Lang }
+const { project, lang } = Astro.props;
+const t = useTranslations(lang);
+const slug = entrySlug(project.id);
+const href = `/${lang}/projects/${slug}`;
+const { title, summary, description, tech, featured, year, category } = project.data;
+---
+
+<article class:list={["proj-card illuminated glow-hover", { featured }]}>
+  <a href={href} class="cover-link" aria-label={title}>
+    <div class="head">
+      <div class="meta">
+        {featured && <span class="rune crest">★ {t("projects.featured")}</span>}
+        {category && <span class="rune">{category}</span>}
+        {year && <span class="rune year">{year}</span>}
+      </div>
+      <h3 class="title">{title}</h3>
+    </div>
+    <p class="desc">{summary ?? description}</p>
+  </a>
+
+  <div class="foot">
+    <ul class="tech">
+      {tech.slice(0, 4).map((tname) => <li>{tname}</li>)}
+      {tech.length > 4 && <li class="more">+{tech.length - 4}</li>}
+    </ul>
+    <div class="links">
+      {project.data.repo && (
+        <a href={project.data.repo} target="_blank" rel="noopener noreferrer" aria-label="Repo">{"</>"}</a>
+      )}
+      {project.data.live && (
+        <a href={project.data.live} target="_blank" rel="noopener noreferrer" aria-label="Live">↗</a>
+      )}
+    </div>
+  </div>
+</article>
+
+<style>
+  .proj-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 1.4rem;
+    height: 100%;
+  }
+  .proj-card.featured {
+    border-color: var(--gold);
+    box-shadow: 0 0 0 1px var(--line-strong), 0 24px 50px -30px color-mix(in srgb, var(--gold) 50%, transparent);
+  }
+  .cover-link { display: block; }
+  .meta { display: flex; flex-wrap: wrap; gap: 0.6rem; align-items: center; margin-bottom: 0.6rem; }
+  .crest { color: var(--gold-bright); }
+  .year { color: var(--ink-faint); }
+  .title { font-size: 1.25rem; margin-bottom: 0.5rem; }
+  .proj-card:hover .title { color: var(--gold-bright); }
+  .desc { color: var(--ink-soft); font-size: 0.98rem; line-height: 1.6; }
+  .foot {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-top: 1.2rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--line);
+  }
+  .tech { display: flex; flex-wrap: wrap; gap: 0.4rem; list-style: none; }
+  .tech li {
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.04em;
+    color: var(--circuit);
+    border: 1px solid var(--line-strong);
+    padding: 0.15rem 0.45rem;
+    border-radius: var(--radius-seal);
+  }
+  .tech .more { color: var(--ink-faint); }
+  .links { display: flex; gap: 0.6rem; }
+  .links a {
+    font-family: var(--font-mono);
+    color: var(--gold);
+    font-size: 1rem;
+    transition: color 0.2s ease, transform 0.2s ease;
+  }
+  .links a:hover { color: var(--gold-bright); transform: translateY(-2px); }
+</style>

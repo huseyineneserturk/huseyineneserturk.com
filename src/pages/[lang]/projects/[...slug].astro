@@ -1,0 +1,72 @@
+---
+import { getCollection, render } from "astro:content";
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import Prose from "@/components/Prose.astro";
+import { entryLang, entrySlug } from "@/lib/content";
+import { useTranslations, type Lang } from "@/i18n/ui";
+
+export async function getStaticPaths() {
+  const projects = await getCollection("projects");
+  return projects.map((project) => ({
+    params: { lang: entryLang(project.id), slug: entrySlug(project.id) },
+    props: { project },
+  }));
+}
+
+const { project } = Astro.props;
+const lang = Astro.params.lang as Lang;
+const t = useTranslations(lang);
+const { Content } = await render(project);
+const { title, description, tech, repo, live, year, category, featured } = project.data;
+---
+
+<BaseLayout lang={lang} title={`${title} — ${t("site.title")}`} description={description} type="article">
+  <a href={`/${lang}/projects`} class="rune back">← {t("nav.projects")}</a>
+
+  <article class="project">
+    <header class="head">
+      <div class="meta">
+        {featured && <span class="rune crest">★ {t("projects.featured")}</span>}
+        {category && <span class="rune">{category}</span>}
+        {year && <span class="rune year">{year}</span>}
+      </div>
+      <h1 class="text-gilded">{title}</h1>
+      <p class="lead">{description}</p>
+
+      <ul class="tech">
+        {tech.map((tname) => <li>{tname}</li>)}
+      </ul>
+
+      <div class="actions">
+        {repo && <a href={repo} target="_blank" rel="noopener noreferrer" class="seal-btn">{"</>"} {t("projects.viewRepo")}</a>}
+        {live && <a href={live} target="_blank" rel="noopener noreferrer" class="ghost-btn">↗ {t("projects.viewLive")}</a>}
+      </div>
+      <hr class="circuit-rule" />
+    </header>
+
+    <Prose>
+      <Content />
+    </Prose>
+  </article>
+</BaseLayout>
+
+<style>
+  .back { display: inline-block; color: var(--gold); margin-bottom: 1.5rem; }
+  .back:hover { color: var(--gold-bright); }
+  .head { margin-bottom: 2rem; }
+  .meta { display: flex; flex-wrap: wrap; gap: 0.7rem; margin-bottom: 0.8rem; }
+  .crest { color: var(--gold-bright); }
+  .year { color: var(--ink-faint); }
+  .head h1 { font-size: clamp(2rem, 6vw, 3rem); }
+  .lead { color: var(--ink-soft); font-size: 1.2rem; font-style: italic; margin: 0.7rem 0 1.3rem; max-width: 44rem; }
+  .tech { display: flex; flex-wrap: wrap; gap: 0.5rem; list-style: none; margin-bottom: 1.5rem; }
+  .tech li {
+    font-family: var(--font-mono);
+    font-size: 0.74rem;
+    color: var(--circuit);
+    border: 1px solid var(--line-strong);
+    padding: 0.25rem 0.6rem;
+    border-radius: var(--radius-seal);
+  }
+  .actions { display: flex; flex-wrap: wrap; gap: 0.8rem; margin-bottom: 1.8rem; }
+</style>

@@ -1,0 +1,22 @@
+---
+interface Props { eyebrow?: string; title: string; subtitle?: string }
+const { eyebrow, title, subtitle } = Astro.props;
+---
+<header class="page-header">
+  {eyebrow && <p class="rune eyebrow">⚜ {eyebrow} ⚜</p>}
+  <h1 class="text-gilded">{title}</h1>
+  {subtitle && <p class="subtitle">{subtitle}</p>}
+  <hr class="circuit-rule" />
+</header>
+<style>
+  .page-header { margin-bottom: 2.5rem; }
+  .eyebrow { color: var(--gold); margin-bottom: 0.8rem; }
+  .page-header h1 { font-size: clamp(2rem, 6vw, 3.2rem); line-height: 1.1; }
+  .subtitle {
+    color: var(--ink-soft);
+    font-size: 1.15rem;
+    font-style: italic;
+    margin: 0.7rem 0 1.4rem;
+    max-width: 42rem;
+  }
+</style>

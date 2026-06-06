@@ -1,0 +1,27 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+// 404 — varsayılan dil TR ile sunulur.
+const lang = "tr" as const;
+---
+<BaseLayout lang={lang} title="404 — Kayıp Sayfa" description="Sayfa bulunamadı.">
+  <section class="lost">
+    <p class="code text-gilded">404</p>
+    <h1>Kayıp Parşömen / Lost Page</h1>
+    <p class="text">
+      Aradığın parşömen bu mahzende bulunamadı.<br />
+      <span class="en">The parchment you seek was not found in this crypt.</span>
+    </p>
+    <div class="cta">
+      <a href="/tr/" class="seal-btn">⌂ Ana Sayfa</a>
+      <a href="/en/" class="ghost-btn">⌂ Home</a>
+    </div>
+  </section>
+</BaseLayout>
+<style>
+  .lost { text-align: center; padding: 4rem 1rem; max-width: 40rem; margin: 0 auto; }
+  .code { font-family: var(--font-display); font-size: clamp(4rem, 18vw, 9rem); line-height: 1; }
+  .lost h1 { font-size: clamp(1.4rem, 4vw, 2rem); margin: 0.6rem 0 1rem; }
+  .text { color: var(--ink-soft); font-style: italic; line-height: 1.8; margin-bottom: 2rem; }
+  .text .en { color: var(--ink-faint); font-size: 0.95rem; }
+  .cta { display: flex; gap: 0.8rem; justify-content: center; flex-wrap: wrap; }
+</style>

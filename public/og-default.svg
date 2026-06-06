@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0c0e17"/>
+      <stop offset="100%" stop-color="#07080f"/>
+    </linearGradient>
+    <linearGradient id="gold" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#f0d27a"/>
+      <stop offset="55%" stop-color="#c9a227"/>
+      <stop offset="100%" stop-color="#5bd0c4"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <g stroke="#c9a227" stroke-width="1" opacity="0.18" fill="none">
+    <path d="M0 120 H300 L340 160 H560"/>
+    <path d="M1200 110 H900 L860 150 H660"/>
+    <path d="M0 520 H260 L300 480 H520"/>
+    <path d="M1200 540 H940 L900 500 H700"/>
+  </g>
+  <rect x="40" y="40" width="1120" height="550" fill="none" stroke="#c9a227" stroke-opacity="0.35" stroke-width="2" rx="4"/>
+
+  <!-- Crest -->
+  <g transform="translate(600,205) scale(2.1)">
+    <path d="M0 -28 L16 -23.5 V-9 C16 1 9 7.5 0 10.5 C-9 7.5 -16 1 -16 -9 V-23.5 Z"
+      fill="rgba(201,162,39,0.12)" stroke="#c9a227" stroke-width="1.6" stroke-linejoin="round"/>
+    <rect x="-7" y="-11" width="14" height="14" rx="1.5" fill="rgba(91,208,196,0.14)" stroke="#f0d27a" stroke-width="1.4"/>
+    <path d="M-3 -7 H3 M-3 -4 H2 M-3 -1 H3" stroke="#b6443f" stroke-width="1.5" stroke-linecap="round"/>
+  </g>
+
+  <text x="600" y="400" text-anchor="middle" font-family="Georgia, serif" font-size="68" font-weight="700" fill="url(#gold)">Hüseyin Enes Ertürk</text>
+  <text x="600" y="452" text-anchor="middle" font-family="monospace" font-size="24" letter-spacing="4" fill="#b6ab90">SOFTWARE ENGINEER · BACKEND &amp; DISTRIBUTED SYSTEMS</text>
+  <text x="600" y="520" text-anchor="middle" font-family="Georgia, serif" font-size="26" font-style="italic" fill="#7d775f">A codex where ancient manuscripts meet modern engineering</text>
+</svg>

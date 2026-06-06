@@ -1,0 +1,37 @@
+---
+// Heraldik kalkan × mikroçip hibrit arma — site logosu
+interface Props { size?: number; class?: string }
+const { size = 34, class: cls = "" } = Astro.props;
+---
+<svg
+  class={cls}
+  width={size}
+  height={size}
+  viewBox="0 0 48 48"
+  fill="none"
+  aria-hidden="true"
+>
+  <!-- Kalkan gövdesi -->
+  <path
+    d="M24 3 L41 8 V24 C41 35 33 42 24 45 C15 42 7 35 7 24 V8 Z"
+    fill="color-mix(in srgb, var(--gold) 12%, transparent)"
+    stroke="var(--gold)"
+    stroke-width="1.6"
+    stroke-linejoin="round"
+  />
+  <!-- Çip pinleri (devre) -->
+  <g stroke="var(--circuit)" stroke-width="1.4" stroke-linecap="round">
+    <path d="M7 16 H3 M7 24 H3 M7 32 H3 M41 16 H45 M41 24 H45 M41 32 H45" />
+  </g>
+  <!-- Merkez çip + devre izleri -->
+  <rect x="17" y="17" width="14" height="14" rx="1.5"
+    fill="color-mix(in srgb, var(--circuit) 14%, transparent)"
+    stroke="var(--gold-bright)" stroke-width="1.4" />
+  <path d="M24 17 V11 M24 31 V37 M17 24 H12 M31 24 H36"
+    stroke="var(--gold-bright)" stroke-width="1.2" stroke-linecap="round" />
+  <!-- "E" rünü / harf -->
+  <path d="M21 21 H27 M21 24 H26 M21 27 H27"
+    stroke="var(--crimson)" stroke-width="1.5" stroke-linecap="round" />
+  <circle cx="12" cy="24" r="1.4" fill="var(--circuit)" />
+  <circle cx="36" cy="24" r="1.4" fill="var(--circuit)" />
+</svg>

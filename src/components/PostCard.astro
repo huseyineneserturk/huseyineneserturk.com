@@ -1,0 +1,44 @@
+---
+import type { CollectionEntry } from "astro:content";
+import { entrySlug, formatDate } from "@/lib/content";
+import { useTranslations, type Lang } from "@/i18n/ui";
+
+interface Props { post: CollectionEntry<"blog">; lang: Lang; readingTime?: number }
+const { post, lang, readingTime } = Astro.props;
+const t = useTranslations(lang);
+const slug = entrySlug(post.id);
+const href = `/${lang}/blog/${slug}`;
+const { title, description, pubDate, tags } = post.data;
+---
+
+<article class="post-card glow-hover">
+  <a href={href}>
+    <div class="meta">
+      <time datetime={pubDate.toISOString()} class="rune">{formatDate(pubDate, lang)}</time>
+      {readingTime && <span class="rune dot">· {readingTime} {t("blog.readingTime")}</span>}
+    </div>
+    <h3 class="title">{title}</h3>
+    <p class="desc">{description}</p>
+    <ul class="tags">
+      {tags.slice(0, 3).map((tag) => <li>#{tag}</li>)}
+    </ul>
+  </a>
+</article>
+
+<style>
+  .post-card {
+    padding: 1.3rem 1.4rem;
+    border: 1px solid var(--line);
+    border-left: 2px solid var(--line-strong);
+    border-radius: var(--radius-seal);
+    background: var(--surface);
+  }
+  .post-card:hover { border-left-color: var(--gold); }
+  .meta { display: flex; gap: 0.4rem; align-items: center; margin-bottom: 0.5rem; }
+  .meta .dot { color: var(--ink-faint); }
+  .title { font-size: 1.2rem; margin-bottom: 0.4rem; }
+  .post-card:hover .title { color: var(--gold-bright); }
+  .desc { color: var(--ink-soft); font-size: 0.96rem; line-height: 1.6; }
+  .tags { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 0.8rem; list-style: none; }
+  .tags li { font-family: var(--font-mono); font-size: 0.7rem; color: var(--circuit); }
+</style>

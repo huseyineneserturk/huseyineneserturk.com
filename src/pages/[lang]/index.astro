@@ -1,0 +1,71 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import SectionTitle from "@/components/SectionTitle.astro";
+import ProjectCard from "@/components/ProjectCard.astro";
+import PostCard from "@/components/PostCard.astro";
+import Hero from "@/components/Hero.astro";
+import { langStaticPaths } from "@/lib/paths";
+import { getProjects, getBlogPosts } from "@/lib/content";
+import { useTranslations, type Lang } from "@/i18n/ui";
+
+export const getStaticPaths = langStaticPaths;
+
+const lang = Astro.params.lang as Lang;
+const t = useTranslations(lang);
+
+const projects = await getProjects(lang);
+const featured = projects.filter((p) => p.data.featured).slice(0, 1);
+const showcase = [...featured, ...projects.filter((p) => !p.data.featured)].slice(0, 4);
+
+const posts = (await getBlogPosts(lang)).slice(0, 3);
+---
+
+<BaseLayout
+  lang={lang}
+  title={`${t("site.title")} — Codex`}
+  description={t("site.tagline")}
+>
+  <Hero lang={lang} />
+
+  {showcase.length > 0 && (
+    <section class="block">
+      <SectionTitle
+        eyebrow="OPVS · I"
+        title={t("home.featured")}
+        href={`/${lang}/projects`}
+        cta={t("home.viewAll")}
+      />
+      <div class="grid projects">
+        {showcase.map((project) => (
+          <ProjectCard project={project} lang={lang} />
+        ))}
+      </div>
+    </section>
+  )}
+
+  {posts.length > 0 && (
+    <section class="block">
+      <SectionTitle
+        eyebrow="OPVS · II"
+        title={t("home.latest")}
+        href={`/${lang}/blog`}
+        cta={t("home.viewAll")}
+      />
+      <div class="grid posts">
+        {posts.map((post) => (
+          <PostCard post={post} lang={lang} />
+        ))}
+      </div>
+    </section>
+  )}
+</BaseLayout>
+
+<style>
+  .block { margin-top: 4.5rem; }
+  .grid { display: grid; gap: 1.2rem; }
+  .projects { grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); }
+  .posts { grid-template-columns: 1fr; }
+  @media (min-width: 720px) {
+    .posts { grid-template-columns: repeat(2, 1fr); }
+  }
+</style>

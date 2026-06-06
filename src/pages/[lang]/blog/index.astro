@@ -1,0 +1,64 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import PageHeader from "@/components/PageHeader.astro";
+import PostCard from "@/components/PostCard.astro";
+import { langStaticPaths } from "@/lib/paths";
+import { getBlogPosts, getAllTags } from "@/lib/content";
+import { useTranslations, type Lang } from "@/i18n/ui";
+import readingTime from "reading-time";
+
+export const getStaticPaths = langStaticPaths;
+
+const lang = Astro.params.lang as Lang;
+const t = useTranslations(lang);
+const posts = await getBlogPosts(lang);
+const tags = await getAllTags(lang);
+
+const rt = (post: (typeof posts)[number]) =>
+  Math.max(1, Math.round(readingTime(post.body ?? "").minutes));
+---
+
+<BaseLayout
+  lang={lang}
+  title={`${t("blog.title")} — ${t("site.title")}`}
+  description={t("blog.subtitle")}
+>
+  <PageHeader eyebrow="CHRONICA" title={t("blog.title")} subtitle={t("blog.subtitle")} />
+
+  {tags.length > 0 && (
+    <div class="tagbar">
+      <span class="rune">{t("blog.tags")}:</span>
+      {tags.map(({ tag, count }) => (
+        <a href={`/${lang}/blog/tags/${tag}`} class="tag-chip">#{tag} <span>{count}</span></a>
+      ))}
+    </div>
+  )}
+
+  {posts.length === 0 ? (
+    <p class="empty">{t("blog.empty")}</p>
+  ) : (
+    <div class="list">
+      {posts.map((post) => (
+        <PostCard post={post} lang={lang} readingTime={rt(post)} />
+      ))}
+    </div>
+  )}
+</BaseLayout>
+
+<style>
+  .tagbar { display: flex; flex-wrap: wrap; gap: 0.6rem; align-items: center; margin-bottom: 2rem; }
+  .tag-chip {
+    font-family: var(--font-mono);
+    font-size: 0.76rem;
+    color: var(--ink-soft);
+    border: 1px solid var(--line-strong);
+    padding: 0.25rem 0.6rem;
+    border-radius: var(--radius-seal);
+    transition: color 0.2s ease, border-color 0.2s ease;
+  }
+  .tag-chip span { color: var(--ink-faint); }
+  .tag-chip:hover { color: var(--gold-bright); border-color: var(--gold); }
+  .list { display: grid; gap: 1.1rem; }
+  .empty { color: var(--ink-faint); font-style: italic; font-size: 1.1rem; }
+  @media (min-width: 720px) { .list { grid-template-columns: repeat(2, 1fr); } }
+</style>

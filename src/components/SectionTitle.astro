@@ -1,0 +1,23 @@
+---
+interface Props { eyebrow?: string; title: string; href?: string; cta?: string }
+const { eyebrow, title, href, cta } = Astro.props;
+---
+<div class="section-title">
+  <div>
+    {eyebrow && <span class="rune">{eyebrow}</span>}
+    <h2>{title}</h2>
+  </div>
+  {href && cta && <a href={href} class="more rune">{cta} →</a>}
+</div>
+<style>
+  .section-title {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: 1.6rem;
+  }
+  .section-title h2 { font-size: clamp(1.5rem, 3.5vw, 2.1rem); margin-top: 0.3rem; }
+  .more { color: var(--gold); white-space: nowrap; transition: color 0.2s ease; }
+  .more:hover { color: var(--gold-bright); }
+</style>

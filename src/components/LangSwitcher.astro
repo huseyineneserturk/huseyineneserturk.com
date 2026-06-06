@@ -1,0 +1,33 @@
+---
+import { swapLangInPath, type Lang } from "@/i18n/ui";
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const path = Astro.url.pathname;
+const other: Lang = lang === "tr" ? "en" : "tr";
+const otherPath = swapLangInPath(path, other);
+---
+
+<a class="lang-switch" href={otherPath} aria-label={`Switch to ${other.toUpperCase()}`}>
+  <span class={lang === "tr" ? "on" : ""}>TR</span>
+  <span class="sep">/</span>
+  <span class={lang === "en" ? "on" : ""}>EN</span>
+</a>
+
+<style>
+  .lang-switch {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.1em;
+    padding: 0.4rem 0.6rem;
+    border: 1px solid var(--line-strong);
+    border-radius: var(--radius-seal);
+    color: var(--ink-faint);
+    transition: border-color 0.2s ease;
+  }
+  .lang-switch:hover { border-color: var(--gold); }
+  .lang-switch .on { color: var(--gold-bright); }
+  .sep { color: var(--ink-faint); }
+</style>

@@ -1,0 +1,36 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import PageHeader from "@/components/PageHeader.astro";
+import ProjectCard from "@/components/ProjectCard.astro";
+import { langStaticPaths } from "@/lib/paths";
+import { getProjects } from "@/lib/content";
+import { useTranslations, type Lang } from "@/i18n/ui";
+
+export const getStaticPaths = langStaticPaths;
+
+const lang = Astro.params.lang as Lang;
+const t = useTranslations(lang);
+const projects = await getProjects(lang);
+---
+
+<BaseLayout
+  lang={lang}
+  title={`${t("projects.title")} — ${t("site.title")}`}
+  description={t("projects.subtitle")}
+>
+  <PageHeader eyebrow="COMPENDIVM" title={t("projects.title")} subtitle={t("projects.subtitle")} />
+
+  <div class="grid">
+    {projects.map((project) => (
+      <ProjectCard project={project} lang={lang} />
+    ))}
+  </div>
+</BaseLayout>
+
+<style>
+  .grid {
+    display: grid;
+    gap: 1.2rem;
+    grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+  }
+</style>

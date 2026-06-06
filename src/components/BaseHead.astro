@@ -1,0 +1,75 @@
+---
+import "../styles/global.css";
+// Fontlar (yerel — gizlilik dostu, harici istek yok)
+import "@fontsource/cinzel/500.css";
+import "@fontsource/cinzel/600.css";
+import "@fontsource/cinzel/700.css";
+import "@fontsource/cinzel-decorative/700.css";
+import "@fontsource/eb-garamond/400.css";
+import "@fontsource/eb-garamond/500.css";
+import "@fontsource/eb-garamond/600.css";
+import "@fontsource/eb-garamond/400-italic.css";
+import "@fontsource/jetbrains-mono/400.css";
+import "@fontsource/jetbrains-mono/500.css";
+
+interface Props {
+  title: string;
+  description: string;
+  lang: "tr" | "en";
+  image?: string;
+  type?: "website" | "article";
+}
+
+const { title, description, lang, image, type = "website" } = Astro.props;
+const canonical = new URL(Astro.url.pathname, Astro.site);
+const ogImage = new URL(image ?? "/og-default.svg", Astro.site);
+---
+
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="generator" content={Astro.generator} />
+
+<title>{title}</title>
+<meta name="description" content={description} />
+<link rel="canonical" href={canonical} />
+<meta name="author" content="Hüseyin Enes Ertürk" />
+
+<!-- İkonlar -->
+<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+<meta name="theme-color" content="#0c0e17" />
+
+<!-- Open Graph -->
+<meta property="og:type" content={type} />
+<meta property="og:title" content={title} />
+<meta property="og:description" content={description} />
+<meta property="og:url" content={canonical} />
+<meta property="og:image" content={ogImage} />
+<meta property="og:locale" content={lang === "tr" ? "tr_TR" : "en_US"} />
+<meta property="og:site_name" content="Hüseyin Enes Ertürk — Codex" />
+
+<!-- Twitter -->
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content={title} />
+<meta name="twitter:description" content={description} />
+<meta name="twitter:image" content={ogImage} />
+
+<!-- RSS -->
+<link
+  rel="alternate"
+  type="application/rss+xml"
+  title="Günce / Chronicle"
+  href={new URL(`/${lang}/rss.xml`, Astro.site)}
+/>
+
+<!-- Tema flaşını engelle: body boyanmadan önce temayı uygula -->
+<script is:inline>
+  (function () {
+    const stored = localStorage.getItem("codex-theme");
+    const theme =
+      stored ??
+      (window.matchMedia("(prefers-color-scheme: light)").matches
+        ? "light"
+        : "dark");
+    document.documentElement.setAttribute("data-theme", theme);
+  })();
+</script>

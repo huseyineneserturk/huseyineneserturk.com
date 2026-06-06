@@ -1,0 +1,23 @@
+---
+// Kenar boşluğu notu — el yazması marjinalia'sı. Blog yazılarında kullanılır.
+---
+<aside class="marginalia">
+  <span class="mark" aria-hidden="true">❧</span>
+  <div class="body"><slot /></div>
+</aside>
+<style>
+  .marginalia {
+    display: flex;
+    gap: 0.7rem;
+    margin: 1.6rem 0;
+    padding: 0.9rem 1.1rem;
+    border-left: 2px solid var(--gold);
+    background: color-mix(in srgb, var(--gold) 6%, transparent);
+    border-radius: 0 var(--radius-seal) var(--radius-seal) 0;
+    font-style: italic;
+    color: var(--ink-soft);
+    font-size: 0.96rem;
+  }
+  .mark { color: var(--crimson); font-size: 1.3rem; line-height: 1; }
+  .body :global(p:last-child) { margin-bottom: 0; }
+</style>

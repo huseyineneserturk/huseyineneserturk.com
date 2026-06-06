@@ -1,0 +1,52 @@
+---
+import { useTranslations, type Lang } from "@/i18n/ui";
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+---
+
+<button id="theme-toggle" class="theme-toggle" aria-label={t("theme.toggle")} title={t("theme.toggle")}>
+  <!-- Mum / gündüz -->
+  <svg class="icon-sun" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">
+    <circle cx="12" cy="12" r="4.2" />
+    <path d="M12 2v2.5M12 19.5V22M2 12h2.5M19.5 12H22M4.9 4.9l1.8 1.8M17.3 17.3l1.8 1.8M19.1 4.9l-1.8 1.8M6.7 17.3l-1.8 1.8" stroke-linecap="round" />
+  </svg>
+  <!-- Mahzen / gece -->
+  <svg class="icon-moon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">
+    <path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5Z" stroke-linejoin="round" />
+  </svg>
+</button>
+
+<style>
+  .theme-toggle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 38px;
+    height: 38px;
+    border: 1px solid var(--line-strong);
+    border-radius: var(--radius-seal);
+    color: var(--gold-bright);
+    background: transparent;
+    cursor: pointer;
+    transition: border-color 0.2s ease, color 0.2s ease, background 0.2s ease;
+  }
+  .theme-toggle:hover {
+    border-color: var(--gold);
+    background: color-mix(in srgb, var(--gold) 10%, transparent);
+  }
+  .icon-sun { display: none; }
+  .icon-moon { display: block; }
+  :global([data-theme="light"]) .icon-sun { display: block; }
+  :global([data-theme="light"]) .icon-moon { display: none; }
+</style>
+
+<script>
+  const btn = document.getElementById("theme-toggle");
+  btn?.addEventListener("click", () => {
+    const current = document.documentElement.getAttribute("data-theme");
+    const next = current === "light" ? "dark" : "light";
+    document.documentElement.setAttribute("data-theme", next);
+    localStorage.setItem("codex-theme", next);
+  });
+</script>

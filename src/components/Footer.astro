@@ -1,0 +1,71 @@
+---
+import { useTranslations, type Lang } from "@/i18n/ui";
+import Crest from "./Crest.astro";
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+const year = new Date().getFullYear();
+
+const socials = [
+  { label: "GitHub", href: "https://github.com/huseyineneserturk" },
+  { label: "LinkedIn", href: "https://www.linkedin.com/in/huseyin-enes-erturk/" },
+  { label: "Dev.to", href: "https://dev.to/huseyineneserturk" },
+  { label: "LeetCode", href: "https://leetcode.com/huseyineneserturk" },
+  { label: "E-posta", href: "mailto:huseyineneserturk@gmail.com" },
+];
+---
+
+<footer class="site-footer">
+  <hr class="circuit-rule" />
+  <div class="inner">
+    <div class="col brand-col">
+      <Crest size={30} />
+      <div>
+        <p class="name text-gilded">Hüseyin Enes Ertürk</p>
+        <p class="tag">{t("site.tagline")}</p>
+      </div>
+    </div>
+
+    <nav class="col links" aria-label="Social">
+      {socials.map((s) => (
+        <a href={s.href} target="_blank" rel="noopener noreferrer me">{s.label}</a>
+      ))}
+    </nav>
+  </div>
+
+  <div class="base">
+    <span class="rune">© {year} · {t("footer.rights")}</span>
+    <span class="rune muted">{t("footer.built")}</span>
+  </div>
+</footer>
+
+<style>
+  .site-footer { max-width: 72rem; margin: 4rem auto 0; padding: 0 1.5rem 2.5rem; }
+  .inner {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+    justify-content: space-between;
+    padding: 2rem 0 1.5rem;
+  }
+  .brand-col { display: flex; align-items: center; gap: 0.8rem; max-width: 26rem; }
+  .name { font-family: var(--font-display); font-weight: 700; font-size: 1rem; }
+  .tag { color: var(--ink-faint); font-size: 0.9rem; font-style: italic; margin-top: 0.2rem; }
+  .links { display: flex; flex-wrap: wrap; gap: 0.4rem 1.2rem; align-items: center; }
+  .links a {
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    color: var(--ink-soft);
+    transition: color 0.2s ease;
+  }
+  .links a:hover { color: var(--gold-bright); }
+  .base {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    padding-top: 1.2rem;
+    border-top: 1px solid var(--line);
+  }
+  .base .muted { color: var(--ink-faint); }
+</style>

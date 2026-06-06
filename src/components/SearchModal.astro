@@ -1,0 +1,139 @@
+---
+import { useTranslations, type Lang } from "@/i18n/ui";
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+---
+
+<button id="search-open" class="search-trigger" aria-label={t("search.label")} title={t("search.label")}>
+  <svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true">
+    <circle cx="11" cy="11" r="7" />
+    <path d="M21 21l-4.3-4.3" stroke-linecap="round" />
+  </svg>
+</button>
+
+<dialog id="search-dialog" class="search-dialog" aria-label={t("search.label")}>
+  <div class="search-inner">
+    <div class="search-head">
+      <span class="rune">⚲ {t("search.placeholder")}</span>
+      <button id="search-close" class="search-close" aria-label="Close">✕</button>
+    </div>
+    <div id="search-ui" data-lang={lang}></div>
+    <p id="search-hint" class="search-hint rune"></p>
+  </div>
+</dialog>
+
+<style>
+  .search-trigger {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 38px; height: 38px;
+    border: 1px solid var(--line-strong);
+    border-radius: var(--radius-seal);
+    color: var(--ink-soft);
+    background: transparent;
+    cursor: pointer;
+    transition: border-color 0.2s ease, color 0.2s ease;
+  }
+  .search-trigger:hover { color: var(--gold-bright); border-color: var(--gold); }
+
+  .search-dialog {
+    margin: 8vh auto auto;
+    width: min(620px, 92vw);
+    padding: 0;
+    border: 1px solid var(--line-strong);
+    border-radius: var(--radius-seal);
+    background: var(--surface-solid);
+    color: var(--ink);
+    box-shadow: var(--shadow);
+  }
+  .search-dialog::backdrop {
+    background: color-mix(in srgb, var(--bg-deep) 80%, transparent);
+    backdrop-filter: blur(3px);
+  }
+  .search-inner { padding: 1.2rem 1.3rem 1.5rem; }
+  .search-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; }
+  .search-head .rune { color: var(--gold); }
+  .search-close {
+    background: transparent; border: 0; color: var(--ink-soft);
+    cursor: pointer; font-size: 1.1rem; line-height: 1;
+  }
+  .search-close:hover { color: var(--crimson); }
+  .search-hint { color: var(--ink-faint); margin-top: 0.8rem; }
+
+  /* Pagefind UI tema uyumu */
+  #search-ui {
+    --pagefind-ui-primary: var(--gold);
+    --pagefind-ui-text: var(--ink);
+    --pagefind-ui-background: var(--surface-solid);
+    --pagefind-ui-border: var(--line-strong);
+    --pagefind-ui-tag: var(--bg-deep);
+    --pagefind-ui-border-width: 1px;
+    --pagefind-ui-border-radius: 2px;
+    --pagefind-ui-font: var(--font-serif);
+  }
+</style>
+
+<script>
+  function initSearch() {
+    const openBtn = document.getElementById("search-open");
+    const dialog = document.getElementById("search-dialog") as HTMLDialogElement | null;
+    const closeBtn = document.getElementById("search-close");
+    const ui = document.getElementById("search-ui");
+    const hint = document.getElementById("search-hint");
+    if (!openBtn || !dialog || !ui) return;
+
+    let loaded = false;
+    function showHint() {
+      if (hint) hint.textContent =
+        (ui!.dataset.lang === "tr")
+          ? "Arama yalnızca yayınlanmış sitede çalışır (derleme sonrası)."
+          : "Search works only on the built site (after build).";
+    }
+    function loadPagefind() {
+      if (loaded) return;
+      loaded = true;
+      const lang = ui!.dataset.lang || "tr";
+
+      const css = document.createElement("link");
+      css.rel = "stylesheet";
+      css.href = "/pagefind/pagefind-ui.css";
+      document.head.appendChild(css);
+
+      // ESM import yerine <script> ile yükle → paketleyici çözmeye çalışmaz.
+      const s = document.createElement("script");
+      s.src = "/pagefind/pagefind-ui.js";
+      s.onload = () => {
+        const PagefindUI = (window as any).PagefindUI;
+        if (!PagefindUI) return showHint();
+        new PagefindUI({
+          element: "#search-ui",
+          showSubResults: true,
+          showImages: false,
+          translations: lang === "tr"
+            ? { placeholder: "Kodekste ara", clear_search: "Temizle", zero_results: "“[SEARCH_TERM]” için sonuç yok" }
+            : { placeholder: "Search the codex" },
+        });
+      };
+      s.onerror = showHint;
+      document.head.appendChild(s);
+    }
+
+    openBtn.addEventListener("click", () => { loadPagefind(); dialog.showModal(); });
+    closeBtn?.addEventListener("click", () => dialog.close());
+    dialog.addEventListener("click", (e) => {
+      if (e.target === dialog) dialog.close();
+    });
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "/" && document.activeElement?.tagName !== "INPUT" && !dialog.open) {
+        e.preventDefault();
+        loadPagefind();
+        dialog.showModal();
+      }
+    });
+  }
+
+  initSearch();
+  document.addEventListener("astro:after-swap", initSearch);
+</script>

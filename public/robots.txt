@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://huseyineneserturk.com/sitemap-index.xml

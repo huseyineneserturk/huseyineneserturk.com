@@ -1,0 +1,49 @@
+---
+import BaseHead from "@/components/BaseHead.astro";
+import Header from "@/components/Header.astro";
+import Footer from "@/components/Footer.astro";
+import type { Lang } from "@/i18n/ui";
+import { ClientRouter } from "astro:transitions";
+
+interface Props {
+  title: string;
+  description: string;
+  lang: Lang;
+  image?: string;
+  type?: "website" | "article";
+}
+
+const { title, description, lang, image, type } = Astro.props;
+---
+
+<!doctype html>
+<html lang={lang}>
+  <head>
+    <BaseHead title={title} description={description} lang={lang} image={image} type={type} />
+    <ClientRouter />
+  </head>
+  <body>
+    <a href="#main" class="skip-link">İçeriğe geç / Skip to content</a>
+    <Header lang={lang} />
+    <main id="main">
+      <slot />
+    </main>
+    <Footer lang={lang} />
+
+    <style>
+      main { max-width: 72rem; margin: 0 auto; padding: 2.5rem 1.5rem 0; }
+      .skip-link {
+        position: absolute;
+        left: -999px;
+        top: 0;
+        z-index: 100;
+        background: var(--gold);
+        color: var(--bg-deep);
+        padding: 0.6rem 1rem;
+        font-family: var(--font-mono);
+        font-size: 0.8rem;
+      }
+      .skip-link:focus { left: 0.5rem; top: 0.5rem; }
+    </style>
+  </body>
+</html>

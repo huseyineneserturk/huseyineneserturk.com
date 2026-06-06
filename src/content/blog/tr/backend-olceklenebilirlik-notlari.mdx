@@ -1,0 +1,38 @@
+---
+title: "Ölçeklenebilir Backend Üzerine Notlar"
+description: "Dağıtık sistemlerde sık karşılaştığım üç desen: kuyruklar, önbellek ve gözlemlenebilirlik."
+pubDate: 2026-05-20
+tags: ["backend", "dağıtık-sistemler", "mimari"]
+---
+
+Backend tarafında çalışırken, ölçeklenebilirliğin tek bir sihirli çözümü
+olmadığını öğrendim. Bunun yerine, tekrar tekrar işe yarayan birkaç desen var.
+
+## 1. Asenkron iş kuyrukları
+
+Ağır işleri (e-posta, rapor üretimi, AI çıkarımı) istek-yanıt döngüsünden çıkarıp
+bir kuyruğa devretmek, kullanıcı deneyimini anında iyileştirir.
+
+```python
+# FastAPI + bir görev kuyruğu
+@app.post("/report")
+async def create_report(payload: ReportRequest):
+    job = await queue.enqueue("generate_report", payload.dict())
+    return {"job_id": job.id, "status": "queued"}
+```
+
+## 2. Önbellek (Redis)
+
+Sık okunan ama seyrek değişen veriyi Redis'te tutmak, veritabanı yükünü
+ciddi biçimde azaltır. Anahtar: doğru **TTL** ve **invalidation** stratejisi.
+
+## 3. Gözlemlenebilirlik
+
+Prometheus + Grafana olmadan, ölçeklendirme karanlıkta el yordamıyla yürümektir.
+Metrik, log ve trace üçlüsü; bir sistemin gerçekte ne yaptığını gösteren tek
+güvenilir kaynaktır.
+
+> Ölçemediğin şeyi iyileştiremezsin.
+
+Bu desenleri **Agentia** üzerinde uyguluyorum; ilerledikçe daha detaylı yazılar
+paylaşacağım.

@@ -1,0 +1,80 @@
+---
+import { getCollection, render } from "astro:content";
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import Prose from "@/components/Prose.astro";
+import TableOfContents from "@/components/TableOfContents.astro";
+import { entryLang, entrySlug, formatDate } from "@/lib/content";
+import { useTranslations, type Lang } from "@/i18n/ui";
+import readingTime from "reading-time";
+
+export async function getStaticPaths() {
+  const posts = await getCollection("blog");
+  return posts.map((post) => ({
+    params: { lang: entryLang(post.id), slug: entrySlug(post.id) },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+const lang = Astro.params.lang as Lang;
+const t = useTranslations(lang);
+const { Content, headings } = await render(post);
+const { title, description, pubDate, updatedDate, tags } = post.data;
+const minutes = Math.max(1, Math.round(readingTime(post.body ?? "").minutes));
+---
+
+<BaseLayout lang={lang} title={`${title} — ${t("site.title")}`} description={description} type="article">
+  <a href={`/${lang}/blog`} class="rune back">← {t("blog.back")}</a>
+
+  <article class="post">
+    <header class="head">
+      <div class="meta">
+        <time datetime={pubDate.toISOString()} class="rune">{t("blog.published")}: {formatDate(pubDate, lang)}</time>
+        <span class="rune dot">· {minutes} {t("blog.readingTime")}</span>
+        {updatedDate && (
+          <span class="rune dot">· {t("blog.updated")}: {formatDate(updatedDate, lang)}</span>
+        )}
+      </div>
+      <h1>{title}</h1>
+      <p class="lead">{description}</p>
+      <ul class="tags">
+        {tags.map((tag) => <li><a href={`/${lang}/blog/tags/${tag}`}>#{tag}</a></li>)}
+      </ul>
+      <hr class="circuit-rule" />
+    </header>
+
+    <div class="layout">
+      <aside class="aside">
+        <div class="sticky">
+          <TableOfContents headings={headings} label={t("blog.toc")} />
+        </div>
+      </aside>
+      <div class="body">
+        <Prose dropcap={true}>
+          <Content />
+        </Prose>
+      </div>
+    </div>
+  </article>
+</BaseLayout>
+
+<style>
+  .back { display: inline-block; color: var(--gold); margin-bottom: 1.5rem; }
+  .back:hover { color: var(--gold-bright); }
+  .head { margin-bottom: 1.5rem; }
+  .meta { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 0.8rem; }
+  .meta .dot { color: var(--ink-faint); }
+  .head h1 { font-size: clamp(2rem, 5.5vw, 2.9rem); line-height: 1.12; }
+  .lead { color: var(--ink-soft); font-size: 1.18rem; font-style: italic; margin: 0.7rem 0 1.1rem; }
+  .tags { display: flex; flex-wrap: wrap; gap: 0.7rem; list-style: none; }
+  .tags a { font-family: var(--font-mono); font-size: 0.76rem; color: var(--circuit); }
+  .tags a:hover { color: var(--gold-bright); }
+
+  .layout { display: grid; gap: 2rem; }
+  .aside { display: none; }
+  .sticky { position: sticky; top: 5.5rem; }
+  @media (min-width: 980px) {
+    .layout { grid-template-columns: 16rem 1fr; }
+    .aside { display: block; }
+  }
+</style>

@@ -1,0 +1,33 @@
+{
+  "name": "huseyineneserturk-com",
+  "type": "module",
+  "version": "1.0.0",
+  "description": "Hüseyin Enes Ertürk — kişisel portfolyo & blog (Codex teması: ortaçağ × teknoloji)",
+  "scripts": {
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro build && pagefind --site dist",
+    "preview": "astro preview",
+    "astro": "astro"
+  },
+  "license": "MIT",
+  "engines": {
+    "node": ">=20.0.0"
+  },
+  "dependencies": {
+    "@astrojs/mdx": "^4.3.14",
+    "@astrojs/rss": "^4.0.18",
+    "@astrojs/sitemap": "^3.7.3",
+    "@fontsource/cinzel": "^5.2.8",
+    "@fontsource/cinzel-decorative": "^5.2.8",
+    "@fontsource/eb-garamond": "^5.2.7",
+    "@fontsource/jetbrains-mono": "^5.2.8",
+    "@tailwindcss/vite": "^4.3.0",
+    "astro": "^5.18.2",
+    "reading-time": "^1.5.0",
+    "tailwindcss": "^4.3.0"
+  },
+  "devDependencies": {
+    "pagefind": "^1.5.2"
+  }
+}

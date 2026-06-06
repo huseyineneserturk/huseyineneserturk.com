@@ -1,0 +1,305 @@
+@import "tailwindcss";
+
+/* ════════════════════════════════════════════════════════════════
+   CODEX — "Dijital Mahzen"
+   Ortaçağ el yazması × devre kartı temalı tasarım sistemi
+   ════════════════════════════════════════════════════════════════ */
+
+/* ---- Tema değişkenleri: GECE (varsayılan / mahzen) ---- */
+:root,
+[data-theme="dark"] {
+  --bg: #0c0e17;
+  --bg-deep: #07080f;
+  --surface: #14172339;
+  --surface-solid: #161a28;
+  --ink: #e7dcc2; /* parşömen metni */
+  --ink-soft: #b6ab90;
+  --ink-faint: #7d775f;
+  --gold: #c9a227; /* altın yaldız */
+  --gold-bright: #f0d27a;
+  --crimson: #b6443f; /* kırmızı mürekkep */
+  --circuit: #5bd0c4; /* parlayan devre */
+  --circuit-soft: #2f8a82;
+  --line: #c9a2271f; /* ince altın hat */
+  --line-strong: #c9a2273d;
+  --shadow: 0 18px 50px -20px #000000c4;
+  --texture-opacity: 0.05;
+  color-scheme: dark;
+}
+
+/* ---- Tema değişkenleri: GÜNDÜZ (parşömen) ---- */
+[data-theme="light"] {
+  --bg: #e9dec5;
+  --bg-deep: #dfd1b0;
+  --surface: #f4ecd863;
+  --surface-solid: #f3ebd6;
+  --ink: #2a2114; /* koyu mürekkep */
+  --ink-soft: #5c4f37;
+  --ink-faint: #897a5c;
+  --gold: #9a7616;
+  --gold-bright: #b8902a;
+  --crimson: #8a2724;
+  --circuit: #1f7a82;
+  --circuit-soft: #2f8a82;
+  --line: #9a76162e;
+  --line-strong: #9a761657;
+  --shadow: 0 18px 40px -24px #6b552a52;
+  --texture-opacity: 0.07;
+  color-scheme: light;
+}
+
+/* ---- Tailwind tema köprüsü: bg-bg, text-ink, text-gold ... ---- */
+@theme {
+  --color-bg: var(--bg);
+  --color-bg-deep: var(--bg-deep);
+  --color-surface: var(--surface);
+  --color-surface-solid: var(--surface-solid);
+  --color-ink: var(--ink);
+  --color-ink-soft: var(--ink-soft);
+  --color-ink-faint: var(--ink-faint);
+  --color-gold: var(--gold);
+  --color-gold-bright: var(--gold-bright);
+  --color-crimson: var(--crimson);
+  --color-circuit: var(--circuit);
+  --color-line: var(--line);
+
+  --font-display: "Cinzel", Georgia, serif;
+  --font-deco: "Cinzel Decorative", "Cinzel", serif;
+  --font-serif: "EB Garamond", Georgia, serif;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+
+  --radius-seal: 2px;
+}
+
+/* ════════════════════════════════════════════════════════════════
+   Temel katman
+   ════════════════════════════════════════════════════════════════ */
+@layer base {
+  * {
+    border-color: var(--line);
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    background-color: var(--bg);
+    color: var(--ink);
+    font-family: var(--font-serif);
+    font-size: 1.075rem;
+    line-height: 1.7;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    min-height: 100vh;
+    position: relative;
+  }
+
+  /* Parşömen dokusu + ince devre ızgarası — tüm sayfanın arkasında */
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: -2;
+    pointer-events: none;
+    background-image:
+      radial-gradient(circle at 50% 50%, var(--gold) 0.5px, transparent 0.6px),
+      linear-gradient(var(--line) 1px, transparent 1px),
+      linear-gradient(90deg, var(--line) 1px, transparent 1px);
+    background-size: 26px 26px, 52px 52px, 52px 52px;
+    opacity: var(--texture-opacity);
+  }
+
+  /* Köşelerde hafif vinyet — kodeks kenarı hissi */
+  body::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    background: radial-gradient(
+      ellipse at 50% 0%,
+      transparent 55%,
+      color-mix(in srgb, var(--bg-deep) 70%, transparent) 100%
+    );
+  }
+
+  h1, h2, h3, h4 {
+    font-family: var(--font-display);
+    font-weight: 600;
+    line-height: 1.18;
+    letter-spacing: 0.01em;
+    color: var(--ink);
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  ::selection {
+    background: var(--gold);
+    color: var(--bg-deep);
+  }
+
+  /* Mahzen kaydırma çubuğu */
+  ::-webkit-scrollbar {
+    width: 11px;
+    height: 11px;
+  }
+  ::-webkit-scrollbar-track {
+    background: var(--bg-deep);
+  }
+  ::-webkit-scrollbar-thumb {
+    background: linear-gradient(var(--gold-bright), var(--gold));
+    border: 2px solid var(--bg-deep);
+    border-radius: 6px;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--gold);
+    outline-offset: 3px;
+  }
+}
+
+/* ════════════════════════════════════════════════════════════════
+   Tema bileşen yardımcıları
+   ════════════════════════════════════════════════════════════════ */
+
+/* Altın → camgöbeği geçişli yazı (logo, vurgular) */
+.text-gilded {
+  background: linear-gradient(120deg, var(--gold-bright), var(--gold) 55%, var(--circuit));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* İlk harf süslemesi — el yazması drop cap */
+.dropcap::first-letter {
+  font-family: var(--font-deco);
+  font-size: 3.4em;
+  line-height: 0.72;
+  float: left;
+  margin: 0.06em 0.12em 0 0;
+  padding: 0.05em 0.06em;
+  color: var(--crimson);
+  text-shadow: 0 0 18px color-mix(in srgb, var(--gold) 40%, transparent);
+}
+
+/* Aydınlatılmış / devre kenarlıklı panel */
+.illuminated {
+  position: relative;
+  background:
+    linear-gradient(var(--surface), var(--surface)),
+    radial-gradient(circle at top left, color-mix(in srgb, var(--gold) 8%, transparent), transparent 40%);
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius-seal);
+  box-shadow: var(--shadow);
+  backdrop-filter: blur(6px);
+}
+.illuminated::before,
+.illuminated::after {
+  content: "";
+  position: absolute;
+  width: 14px;
+  height: 14px;
+  border: 1.5px solid var(--gold);
+  opacity: 0.7;
+}
+.illuminated::before {
+  top: -1px;
+  left: -1px;
+  border-right: 0;
+  border-bottom: 0;
+}
+.illuminated::after {
+  bottom: -1px;
+  right: -1px;
+  border-left: 0;
+  border-top: 0;
+}
+
+/* Devre / filigran ayıracı */
+.circuit-rule {
+  height: 1px;
+  border: 0;
+  background: linear-gradient(90deg, transparent, var(--gold) 20%, var(--circuit) 50%, var(--gold) 80%, transparent);
+  position: relative;
+  opacity: 0.6;
+}
+
+/* Mum mührü buton — birincil eylem */
+.seal-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 0.7rem 1.4rem;
+  color: var(--bg-deep);
+  background: linear-gradient(135deg, var(--gold-bright), var(--gold));
+  border: 1px solid var(--gold-bright);
+  border-radius: var(--radius-seal);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.seal-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 24px -10px color-mix(in srgb, var(--gold) 70%, transparent);
+}
+
+/* İkincil hatlı buton */
+.ghost-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 0.7rem 1.4rem;
+  color: var(--ink);
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius-seal);
+  transition: border-color 0.2s ease, color 0.2s ease, background 0.2s ease;
+}
+.ghost-btn:hover {
+  color: var(--gold-bright);
+  border-color: var(--gold);
+  background: color-mix(in srgb, var(--gold) 8%, transparent);
+}
+
+/* Mono küçük etiket — "kategori / yıl" rozetleri */
+.rune {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--circuit);
+}
+
+/* Hover'da parlayan devre kart bağlantısı */
+.glow-hover {
+  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+}
+.glow-hover:hover {
+  transform: translateY(-4px);
+  border-color: var(--gold);
+  box-shadow: 0 0 0 1px var(--line-strong), 0 22px 44px -26px color-mix(in srgb, var(--circuit) 60%, transparent);
+}
+
+/* ════════════════════════════════════════════════════════════════
+   Hareket azaltma tercihi
+   ════════════════════════════════════════════════════════════════ */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}

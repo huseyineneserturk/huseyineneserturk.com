@@ -1,0 +1,156 @@
+---
+import { useTranslations, type Lang } from "@/i18n/ui";
+import ThemeToggle from "./ThemeToggle.astro";
+import LangSwitcher from "./LangSwitcher.astro";
+import SearchModal from "./SearchModal.astro";
+import Crest from "./Crest.astro";
+
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+const base = `/${lang}`;
+const path = Astro.url.pathname.replace(/\/$/, "");
+
+const links = [
+  { href: `${base}`, label: t("nav.home") },
+  { href: `${base}/about`, label: t("nav.about") },
+  { href: `${base}/projects`, label: t("nav.projects") },
+  { href: `${base}/blog`, label: t("nav.blog") },
+  { href: `${base}/contact`, label: t("nav.contact") },
+];
+
+const isActive = (href: string) =>
+  href === base ? path === base : path.startsWith(href);
+---
+
+<header class="site-header">
+  <div class="bar">
+    <a class="brand" href={base} aria-label="Codex — home">
+      <Crest size={34} />
+      <span class="brand-text">
+        <span class="brand-name text-gilded">H. Enes Ertürk</span>
+        <span class="brand-sub rune">CODEX</span>
+      </span>
+    </a>
+
+    <nav class="nav-desktop" aria-label="Primary">
+      {links.map((l) => (
+        <a href={l.href} class:list={["nav-link", { active: isActive(l.href) }]}>
+          {l.label}
+        </a>
+      ))}
+    </nav>
+
+    <div class="controls">
+      <SearchModal lang={lang} />
+      <LangSwitcher lang={lang} />
+      <ThemeToggle lang={lang} />
+      <button id="menu-toggle" class="menu-btn" aria-label="Menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+
+  <nav id="mobile-nav" class="nav-mobile" aria-label="Mobile">
+    {links.map((l) => (
+      <a href={l.href} class:list={["nav-link", { active: isActive(l.href) }]}>
+        {l.label}
+      </a>
+    ))}
+  </nav>
+  <hr class="circuit-rule" />
+</header>
+
+<style>
+  .site-header {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    backdrop-filter: blur(10px);
+    background: color-mix(in srgb, var(--bg) 78%, transparent);
+  }
+  .bar {
+    max-width: 72rem;
+    margin: 0 auto;
+    padding: 0.85rem 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+  .brand { display: inline-flex; align-items: center; gap: 0.65rem; }
+  .brand-text { display: flex; flex-direction: column; line-height: 1; }
+  .brand-name { font-family: var(--font-display); font-weight: 700; font-size: 1.05rem; }
+  .brand-sub { margin-top: 3px; font-size: 0.6rem; color: var(--ink-faint); }
+
+  .nav-desktop { display: none; gap: 0.35rem; }
+  .nav-link {
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 0.5rem 0.8rem;
+    color: var(--ink-soft);
+    border-bottom: 1px solid transparent;
+    transition: color 0.2s ease, border-color 0.2s ease;
+  }
+  .nav-link:hover { color: var(--gold-bright); }
+  .nav-link.active { color: var(--gold-bright); border-color: var(--gold); }
+
+  .controls { display: flex; align-items: center; gap: 0.6rem; }
+
+  .menu-btn {
+    display: inline-flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 4px;
+    width: 38px; height: 38px;
+    border: 1px solid var(--line-strong);
+    border-radius: var(--radius-seal);
+    background: transparent;
+    cursor: pointer;
+  }
+  .menu-btn span {
+    display: block;
+    height: 1.5px;
+    width: 18px;
+    margin: 0 auto;
+    background: var(--gold-bright);
+    transition: transform 0.25s ease, opacity 0.2s ease;
+  }
+  .menu-btn[aria-expanded="true"] span:nth-child(1) { transform: translateY(5.5px) rotate(45deg); }
+  .menu-btn[aria-expanded="true"] span:nth-child(2) { opacity: 0; }
+  .menu-btn[aria-expanded="true"] span:nth-child(3) { transform: translateY(-5.5px) rotate(-45deg); }
+
+  .nav-mobile {
+    display: grid;
+    grid-template-rows: 0fr;
+    overflow: hidden;
+    transition: grid-template-rows 0.3s ease;
+  }
+  .nav-mobile.open { grid-template-rows: 1fr; }
+  .nav-mobile > * { min-height: 0; }
+  .nav-mobile {
+    padding: 0 1.5rem;
+  }
+  .nav-mobile .nav-link {
+    display: block;
+    padding: 0.75rem 0;
+    border-bottom: 1px solid var(--line);
+  }
+
+  @media (min-width: 860px) {
+    .nav-desktop { display: flex; }
+    .menu-btn { display: none; }
+    .nav-mobile { display: none; }
+  }
+</style>
+
+<script>
+  const toggle = document.getElementById("menu-toggle");
+  const nav = document.getElementById("mobile-nav");
+  toggle?.addEventListener("click", () => {
+    const open = nav?.classList.toggle("open");
+    toggle.setAttribute("aria-expanded", String(!!open));
+  });
+</script>

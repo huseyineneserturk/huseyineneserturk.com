@@ -1,0 +1,38 @@
+---
+import type { MarkdownHeading } from "astro";
+interface Props { headings: MarkdownHeading[]; label: string }
+const { headings, label } = Astro.props;
+// Yalnızca h2 ve h3'leri içindekiler'e al
+const toc = headings.filter((h) => h.depth === 2 || h.depth === 3);
+---
+{toc.length > 0 && (
+  <nav class="toc" aria-label={label}>
+    <p class="rune title">{label}</p>
+    <ul>
+      {toc.map((h) => (
+        <li class:list={[`depth-${h.depth}`]}>
+          <a href={`#${h.slug}`}>{h.text}</a>
+        </li>
+      ))}
+    </ul>
+  </nav>
+)}
+<style>
+  .toc {
+    border: 1px solid var(--line);
+    border-left: 2px solid var(--gold);
+    border-radius: var(--radius-seal);
+    padding: 1rem 1.2rem;
+    background: var(--surface);
+  }
+  .title { color: var(--gold); margin-bottom: 0.7rem; }
+  .toc ul { list-style: none; }
+  .toc li { margin: 0.3rem 0; }
+  .toc .depth-3 { padding-left: 1rem; }
+  .toc a {
+    font-size: 0.92rem;
+    color: var(--ink-soft);
+    transition: color 0.2s ease;
+  }
+  .toc a:hover { color: var(--gold-bright); }
+</style>

@@ -1,0 +1,129 @@
+---
+interface Props { dropcap?: boolean }
+const { dropcap = false } = Astro.props;
+---
+<div class:list={["prose", { "with-dropcap": dropcap }]}>
+  <slot />
+</div>
+
+<style is:global>
+  .prose {
+    color: var(--ink);
+    font-size: 1.1rem;
+    line-height: 1.78;
+    max-width: 44rem;
+  }
+  .prose > p:first-of-type.with-dropcap::first-letter,
+  .prose.with-dropcap > p:first-of-type::first-letter {
+    font-family: var(--font-deco);
+    font-size: 3.2em;
+    line-height: 0.72;
+    float: left;
+    margin: 0.05em 0.1em 0 0;
+    color: var(--crimson);
+  }
+  .prose h2 {
+    font-size: 1.6rem;
+    margin: 2.4rem 0 0.9rem;
+    padding-bottom: 0.35rem;
+    border-bottom: 1px solid var(--line);
+  }
+  .prose h3 { font-size: 1.3rem; margin: 1.8rem 0 0.7rem; }
+  .prose h2 a, .prose h3 a, .prose h4 a {
+    color: inherit;
+  }
+  .prose p { margin: 0 0 1.15rem; }
+  .prose a:not(h2 a):not(h3 a) {
+    color: var(--circuit);
+    text-decoration: underline;
+    text-decoration-color: var(--line-strong);
+    text-underline-offset: 3px;
+    transition: text-decoration-color 0.2s ease;
+  }
+  .prose a:hover { text-decoration-color: var(--circuit); }
+  .prose strong { color: var(--gold-bright); font-weight: 600; }
+  .prose ul, .prose ol { margin: 0 0 1.2rem 1.3rem; }
+  .prose li { margin-bottom: 0.4rem; }
+  .prose ul { list-style: none; }
+  .prose ul > li::before {
+    content: "◈";
+    color: var(--gold);
+    font-size: 0.7em;
+    margin-right: 0.6rem;
+    margin-left: -1.3rem;
+  }
+  .prose blockquote {
+    margin: 1.6rem 0;
+    padding: 0.6rem 1.2rem;
+    border-left: 3px solid var(--crimson);
+    background: color-mix(in srgb, var(--crimson) 6%, transparent);
+    font-style: italic;
+    color: var(--ink-soft);
+  }
+  .prose blockquote p { margin: 0; }
+  .prose code:not(pre code) {
+    font-family: var(--font-mono);
+    font-size: 0.86em;
+    background: color-mix(in srgb, var(--circuit) 12%, transparent);
+    color: var(--circuit);
+    padding: 0.12em 0.4em;
+    border-radius: var(--radius-seal);
+  }
+  .prose pre {
+    margin: 1.5rem 0;
+    padding: 1.1rem 1.2rem;
+    border: 1px solid var(--line-strong);
+    border-radius: var(--radius-seal);
+    background: var(--bg-deep) !important;
+    overflow-x: auto;
+    font-size: 0.9rem;
+    line-height: 1.6;
+  }
+  .prose pre code { font-family: var(--font-mono); }
+  .prose table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1.5rem 0;
+    font-size: 0.96rem;
+  }
+  .prose th, .prose td {
+    text-align: left;
+    padding: 0.6rem 0.8rem;
+    border: 1px solid var(--line);
+  }
+  .prose th {
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--gold);
+    background: color-mix(in srgb, var(--gold) 7%, transparent);
+  }
+  .prose hr {
+    border: 0;
+    height: 1px;
+    margin: 2rem 0;
+    background: linear-gradient(90deg, transparent, var(--gold) 50%, transparent);
+  }
+  .prose img {
+    max-width: 100%;
+    height: auto;
+    border: 1px solid var(--line-strong);
+    border-radius: var(--radius-seal);
+  }
+  /* Shiki css-variables teması köprüsü */
+  .prose pre.astro-code,
+  .prose pre.shiki {
+    --astro-code-color-text: var(--ink);
+    --astro-code-color-background: var(--bg-deep);
+    --astro-code-token-comment: var(--ink-faint);
+    --astro-code-token-keyword: var(--crimson);
+    --astro-code-token-string: var(--gold-bright);
+    --astro-code-token-function: var(--circuit);
+    --astro-code-token-constant: var(--gold);
+    --astro-code-token-parameter: var(--ink);
+    --astro-code-token-string-expression: var(--gold-bright);
+    --astro-code-token-punctuation: var(--ink-soft);
+    --astro-code-token-link: var(--circuit);
+  }
+</style>
