@@ -3,12 +3,10 @@ import type { Lang } from "@/i18n/ui";
 export const bio: Record<Lang, string[]> = {
   tr: [
     "Türkiye'den, 3. sınıf bir Yazılım Mühendisliği öğrencisiyim. Backend geliştirme ve dağıtık sistemler üzerine yoğunlaşıyorum; ölçeklenebilir sistem tasarımı, yapay zekâ entegrasyonu ve temiz, sürdürülebilir kod benim asıl ilgi alanlarım.",
-    "Şu anda bitirme projem olan **Agentia**'yı geliştiriyorum: mobil öncelikli bir yapay zekâ ajan orkestrasyon platformu. Bu yolculukta Spring Boot'tan FastAPI'ye, Flutter'dan Kubernetes'e kadar geniş bir cephanelik kullanıyorum.",
     "Kod yazmadığım zamanlarda yeni teknolojileri kurcalamayı, güvenlik araştırmalarını ve öğrendiklerimi yazıya dökmeyi seviyorum. Bu kodeks de tam olarak bunun için var.",
   ],
   en: [
     "I'm a third-year Software Engineering student from Turkey, focused on backend development and distributed systems. Scalable system design, AI integration and clean, maintainable code are my core interests.",
-    "I'm currently building **Agentia**, my graduation project: a mobile-first AI agent orchestration platform. Along the way I work with a broad arsenal — from Spring Boot to FastAPI, from Flutter to Kubernetes.",
     "When I'm not coding, I enjoy tinkering with new technologies, security research, and writing down what I learn. This codex exists for exactly that.",
   ],
 };
@@ -46,18 +44,26 @@ export interface TimelineEntry {
 export const timeline: TimelineEntry[] = [
   {
     year: "2026",
-    title: { tr: "Bitirme Projesi — Agentia", en: "Graduation Project — Agentia" },
+    title: { tr: "Kişisel Proje — Agentia", en: "Personal Project — Agentia" },
     detail: {
-      tr: "Mobil öncelikli yapay zekâ ajan orkestrasyon platformunun tasarımı ve geliştirilmesi.",
-      en: "Designing and building a mobile-first AI agent orchestration platform.",
+      tr: "Okul döneminde bireysel olarak geliştirdiğim mobil öncelikli yapay zekâ ajan orkestrasyon platformu.",
+      en: "A mobile-first AI agent orchestration platform I built individually during my studies.",
     },
   },
   {
     year: "2025",
-    title: { tr: "Yapay Zekâ Akademisi & Bootcamp'ler", en: "AI Academy & Bootcamps" },
+    title: { tr: "Yapay Zekâ ve Teknoloji Akademisi", en: "AI & Technology Academy" },
     detail: {
-      tr: "Google Yapay Zekâ ve Teknoloji Akademisi; AppJam ve bootcamp projeleri (Notest, SayCheese, Quizz.AI).",
-      en: "Google AI & Technology Academy; AppJam and bootcamp projects (Notest, SayCheese, Quizz.AI).",
+      tr: "Google Yapay Zekâ ve Teknoloji Akademisi; bootcamp projeleri (Notest, CommsItumo, Quizz.AI).",
+      en: "Google AI & Technology Academy; bootcamp projects (Notest, CommsItumo, Quizz.AI).",
+    },
+  },
+  {
+    year: "2025",
+    title: { tr: "Oyun ve Uygulama Akademisi", en: "Game & Application Academy" },
+    detail: {
+      tr: "Google Oyun ve Uygulama Akademisi; App Jam takım projeleri (SayCheese, Quizz.AI).",
+      en: "Google Game & Application Academy; App Jam team projects (SayCheese, Quizz.AI).",
     },
   },
   {

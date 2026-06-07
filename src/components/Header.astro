@@ -3,7 +3,6 @@ import { useTranslations, type Lang } from "@/i18n/ui";
 import ThemeToggle from "./ThemeToggle.astro";
 import LangSwitcher from "./LangSwitcher.astro";
 import SearchModal from "./SearchModal.astro";
-import Crest from "./Crest.astro";
 
 interface Props { lang: Lang }
 const { lang } = Astro.props;
@@ -26,7 +25,6 @@ const isActive = (href: string) =>
 <header class="site-header">
   <div class="bar">
     <a class="brand" href={base} aria-label="Codex — home">
-      <Crest size={34} />
       <span class="brand-text">
         <span class="brand-name text-gilded">H. Enes Ertürk</span>
         <span class="brand-sub rune">CODEX</span>

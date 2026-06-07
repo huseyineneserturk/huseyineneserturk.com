@@ -1,7 +1,6 @@
 ---
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import PageHeader from "@/components/PageHeader.astro";
-import Crest from "@/components/Crest.astro";
 import { langStaticPaths } from "@/lib/paths";
 import { useTranslations, type Lang } from "@/i18n/ui";
 import { bio, skills, timeline } from "@/data/about";
@@ -21,24 +20,16 @@ const renderBold = (s: string) =>
   title={`${t("about.title")} — ${t("site.title")}`}
   description={t("site.role")}
 >
-  <PageHeader eyebrow="AVCTORE" title={t("about.title")} subtitle={t("site.role")} />
+  <PageHeader title={t("about.title")} subtitle={t("site.role")} />
 
-  <div class="grid">
-    <section class="bio">
-      {bio[lang].map((p, i) => (
-        <p class:list={["para", { dropcap: i === 0 }]} set:html={renderBold(p)} />
-      ))}
-    </section>
-
-    <aside class="crest-box illuminated">
-      <Crest size={90} />
-      <p class="motto">“Ex codice, lux.”</p>
-      <p class="motto-sub rune">{lang === "tr" ? "Kodeksten ışık doğar" : "From the codex, light"}</p>
-    </aside>
-  </div>
+  <section class="bio">
+    {bio[lang].map((p, i) => (
+      <p class:list={["para", { dropcap: i === 0 }]} set:html={renderBold(p)} />
+    ))}
+  </section>
 
   <section class="block">
-    <h2 class="sec-title"><span class="rune">⚒</span> {t("about.stack")}</h2>
+    <h2 class="sec-title">{t("about.stack")}</h2>
     <div class="skills">
       {skills.map((group) => (
         <div class="skill-group illuminated">
@@ -52,7 +43,7 @@ const renderBold = (s: string) =>
   </section>
 
   <section class="block">
-    <h2 class="sec-title"><span class="rune">❧</span> {t("about.timeline")}</h2>
+    <h2 class="sec-title">{t("about.timeline")}</h2>
     <ol class="timeline">
       {timeline.map((entry) => (
         <li>
@@ -69,9 +60,7 @@ const renderBold = (s: string) =>
 </BaseLayout>
 
 <style>
-  .grid { display: grid; gap: 2rem; align-items: start; }
-  @media (min-width: 860px) { .grid { grid-template-columns: 1fr 18rem; } }
-
+  .bio { max-width: 44rem; }
   .bio .para { font-size: 1.12rem; line-height: 1.8; color: var(--ink-soft); margin-bottom: 1.2rem; }
   .bio .para :global(strong) { color: var(--gold-bright); }
   .bio .dropcap::first-letter {
@@ -82,10 +71,6 @@ const renderBold = (s: string) =>
     margin: 0.05em 0.1em 0 0;
     color: var(--crimson);
   }
-
-  .crest-box { display: flex; flex-direction: column; align-items: center; text-align: center; padding: 1.8rem; }
-  .motto { font-family: var(--font-deco); color: var(--gold-bright); font-size: 1.15rem; margin-top: 1rem; }
-  .motto-sub { color: var(--ink-faint); margin-top: 0.3rem; }
 
   .block { margin-top: 3.5rem; }
   .sec-title { font-size: 1.6rem; margin-bottom: 1.4rem; display: flex; align-items: center; gap: 0.6rem; }

@@ -1,6 +1,5 @@
 ---
 import { useTranslations, type Lang } from "@/i18n/ui";
-import Crest from "./Crest.astro";
 interface Props { lang: Lang }
 const { lang } = Astro.props;
 const t = useTranslations(lang);
@@ -19,11 +18,7 @@ const socials = [
   <hr class="circuit-rule" />
   <div class="inner">
     <div class="col brand-col">
-      <Crest size={30} />
-      <div>
-        <p class="name text-gilded">Hüseyin Enes Ertürk</p>
-        <p class="tag">{t("site.tagline")}</p>
-      </div>
+      <p class="name text-gilded">Hüseyin Enes Ertürk</p>
     </div>
 
     <nav class="col links" aria-label="Social">
@@ -35,7 +30,6 @@ const socials = [
 
   <div class="base">
     <span class="rune">© {year} · {t("footer.rights")}</span>
-    <span class="rune muted">{t("footer.built")}</span>
   </div>
 </footer>
 

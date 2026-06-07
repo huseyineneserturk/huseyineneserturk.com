@@ -17,7 +17,7 @@ const { project } = Astro.props;
 const lang = Astro.params.lang as Lang;
 const t = useTranslations(lang);
 const { Content } = await render(project);
-const { title, description, tech, repo, live, year, category, featured } = project.data;
+const { title, description, tech, repo, live, year, category } = project.data;
 ---
 
 <BaseLayout lang={lang} title={`${title} — ${t("site.title")}`} description={description} type="article">
@@ -26,11 +26,10 @@ const { title, description, tech, repo, live, year, category, featured } = proje
   <article class="project">
     <header class="head">
       <div class="meta">
-        {featured && <span class="rune crest">★ {t("projects.featured")}</span>}
         {category && <span class="rune">{category}</span>}
         {year && <span class="rune year">{year}</span>}
       </div>
-      <h1 class="text-gilded">{title}</h1>
+      <h1 class="text-gilded">{title.toLocaleUpperCase("en-US")}</h1>
       <p class="lead">{description}</p>
 
       <ul class="tech">
