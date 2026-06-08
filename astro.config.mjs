@@ -5,8 +5,8 @@ import sitemap from "@astrojs/sitemap";
 import tailwindcss from "@tailwindcss/vite";
 
 // Yayınlanacak alan adı. Hostinger'dan alıp DigitalOcean App Platform'a
-// bağlandıktan sonra burası https://huseyineneserturk.com olarak kalmalı.
-const SITE = "https://huseyineneserturk.com";
+// bağlandıktan sonra burası birincil (www'lu) alan adı olarak kalmalı.
+const SITE = "https://www.huseyineneserturk.com";
 
 // https://astro.build/config
 export default defineConfig({

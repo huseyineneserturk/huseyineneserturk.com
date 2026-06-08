@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://huseyineneserturk.com/sitemap-index.xml
+Sitemap: https://www.huseyineneserturk.com/sitemap-index.xml
