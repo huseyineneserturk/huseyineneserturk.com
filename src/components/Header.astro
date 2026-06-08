@@ -33,7 +33,11 @@ const isActive = (href: string) =>
 
     <nav class="nav-desktop" aria-label="Primary">
       {links.map((l) => (
-        <a href={l.href} class:list={["nav-link", { active: isActive(l.href) }]}>
+        <a
+          href={l.href}
+          class:list={["nav-link", { active: isActive(l.href) }]}
+          aria-current={isActive(l.href) ? "page" : undefined}
+        >
           {l.label}
         </a>
       ))}
@@ -43,7 +47,7 @@ const isActive = (href: string) =>
       <SearchModal lang={lang} />
       <LangSwitcher lang={lang} />
       <ThemeToggle lang={lang} />
-      <button id="menu-toggle" class="menu-btn" aria-label="Menu" aria-expanded="false">
+      <button id="menu-toggle" class="menu-btn" aria-label="Menu" aria-expanded="false" aria-controls="mobile-nav">
         <span></span><span></span><span></span>
       </button>
     </div>
@@ -51,7 +55,11 @@ const isActive = (href: string) =>
 
   <nav id="mobile-nav" class="nav-mobile" aria-label="Mobile">
     {links.map((l) => (
-      <a href={l.href} class:list={["nav-link", { active: isActive(l.href) }]}>
+      <a
+        href={l.href}
+        class:list={["nav-link", { active: isActive(l.href) }]}
+        aria-current={isActive(l.href) ? "page" : undefined}
+      >
         {l.label}
       </a>
     ))}
@@ -124,9 +132,10 @@ const isActive = (href: string) =>
     display: grid;
     grid-template-rows: 0fr;
     overflow: hidden;
-    transition: grid-template-rows 0.3s ease;
+    visibility: hidden; /* kapalıyken bağlantılar tab sırasından çıksın */
+    transition: grid-template-rows 0.3s ease, visibility 0.3s;
   }
-  .nav-mobile.open { grid-template-rows: 1fr; }
+  .nav-mobile.open { grid-template-rows: 1fr; visibility: visible; }
   .nav-mobile > * { min-height: 0; }
   .nav-mobile {
     padding: 0 1.5rem;

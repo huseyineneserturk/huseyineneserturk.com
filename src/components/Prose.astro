@@ -85,6 +85,10 @@ const { dropcap = false } = Astro.props;
     border-collapse: collapse;
     margin: 1.5rem 0;
     font-size: 0.96rem;
+    /* Mobilde geniş tablolar sayfayı taşırmasın, yatay kaysın */
+    display: block;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
   }
   .prose th, .prose td {
     text-align: left;

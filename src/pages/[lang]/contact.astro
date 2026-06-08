@@ -59,9 +59,15 @@ const channels = [
     border: 1px solid var(--line-strong);
     border-radius: var(--radius-seal);
   }
-  .text { display: flex; flex-direction: column; line-height: 1.3; flex: 1; }
+  .text { display: flex; flex-direction: column; line-height: 1.3; flex: 1; min-width: 0; }
   .label { color: var(--gold); }
-  .value { font-family: var(--font-mono); font-size: 0.9rem; color: var(--ink-soft); margin-top: 0.15rem; }
+  .value {
+    font-family: var(--font-mono);
+    font-size: 0.9rem;
+    color: var(--ink-soft);
+    margin-top: 0.15rem;
+    overflow-wrap: anywhere; /* uzun e-posta/URL mobilde sarsın, taşmasın */
+  }
   .arrow { color: var(--gold); transition: transform 0.2s ease; }
   .channel:hover .arrow { transform: translateX(4px); color: var(--gold-bright); }
 </style>

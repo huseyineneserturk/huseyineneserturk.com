@@ -14,7 +14,7 @@
   --surface-solid: #161a28;
   --ink: #e7dcc2; /* parşömen metni */
   --ink-soft: #b6ab90;
-  --ink-faint: #7d775f;
+  --ink-faint: #8c866e; /* WCAG AA: küçük metinde 4.5:1 ↑ */
   --gold: #c9a227; /* altın yaldız */
   --gold-bright: #f0d27a;
   --crimson: #b6443f; /* kırmızı mürekkep */
@@ -35,11 +35,11 @@
   --surface-solid: #f3ebd6;
   --ink: #2a2114; /* koyu mürekkep */
   --ink-soft: #5c4f37;
-  --ink-faint: #897a5c;
-  --gold: #9a7616;
-  --gold-bright: #b8902a;
+  --ink-faint: #695c3c; /* WCAG AA */
+  --gold: #735610; /* WCAG AA: parşömen üstünde küçük metin için koyu altın */
+  --gold-bright: #7a5b0e;
   --crimson: #8a2724;
-  --circuit: #1f7a82;
+  --circuit: #15666e;
   --circuit-soft: #2f8a82;
   --line: #9a76162e;
   --line-strong: #9a761657;

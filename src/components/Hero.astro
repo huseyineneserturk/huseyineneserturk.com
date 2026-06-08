@@ -97,7 +97,8 @@ const t = useTranslations(lang);
   .greeting {
     font-family: var(--font-deco);
     color: var(--crimson);
-    font-size: clamp(1.1rem, 2.5vw, 1.5rem);
+    /* min 1.35rem (~21.6px, bold) → WCAG "büyük metin" sınıfı, crimson 3:1 geçer */
+    font-size: clamp(1.35rem, 3vw, 1.6rem);
     margin-bottom: 1.2rem;
   }
   .intro {
