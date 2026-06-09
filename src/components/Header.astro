@@ -153,11 +153,4 @@ const isActive = (href: string) =>
   }
 </style>
 
-<script>
-  const toggle = document.getElementById("menu-toggle");
-  const nav = document.getElementById("mobile-nav");
-  toggle?.addEventListener("click", () => {
-    const open = nav?.classList.toggle("open");
-    toggle.setAttribute("aria-expanded", String(!!open));
-  });
-</script>
+<!-- Menü tıklama mantığı merkezî FX motorunda (src/scripts/fx.ts) — VT sonrası da çalışır -->

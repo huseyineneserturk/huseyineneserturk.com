@@ -6,7 +6,7 @@ const t = useTranslations(lang);
 ---
 
 <section class="hero">
-  <!-- Dekoratif devre + filigran arka plan -->
+  <!-- Dekoratif + yaşayan devre arka planı -->
   <svg class="filigree" viewBox="0 0 800 400" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
     <defs>
       <linearGradient id="trace" x1="0" y1="0" x2="1" y2="1">
@@ -22,15 +22,50 @@ const t = useTranslations(lang);
       <path class="t" d="M400 0 V60 L430 90 V160" />
       <path class="t" d="M400 400 V340 L370 310 V240" />
     </g>
+    <!-- akan enerji izleri -->
+    <g fill="none" stroke="var(--circuit)" stroke-width="1.4" opacity="0.55" stroke-linecap="round">
+      <path class="flow" d="M0 80 H180 L210 110 H360" stroke-dasharray="14 220" />
+      <path class="flow flow2" d="M800 340 H660 L630 310 H520" stroke-dasharray="14 200" />
+      <path class="flow flow3" d="M400 0 V60 L430 90 V160" stroke-dasharray="12 180" />
+    </g>
     <g fill="var(--circuit)">
       <circle class="node" cx="360" cy="110" r="3" />
-      <circle class="node" cx="470" cy="90" r="3" />
-      <circle class="node" cx="300" cy="290" r="3" />
-      <circle class="node" cx="520" cy="310" r="3" />
-      <circle class="node" cx="430" cy="90" r="3" />
-      <circle class="node" cx="370" cy="310" r="3" />
+      <circle class="node n2" cx="470" cy="90" r="3" />
+      <circle class="node n3" cx="300" cy="290" r="3" />
+      <circle class="node n4" cx="520" cy="310" r="3" />
+      <circle class="node n5" cx="430" cy="90" r="3" />
+      <circle class="node n6" cx="370" cy="310" r="3" />
     </g>
   </svg>
+
+  <!-- Mini okçular: greeting'in iki yanından İletişime Geç'e ok atarlar (JS sürer) -->
+  <div class="archery" aria-hidden="true">
+    <div class="archer archer-l">
+      <svg viewBox="0 0 40 50" width="40" height="50">
+        <path d="M30 5 Q42 25 30 45" fill="none" stroke="var(--gold)" stroke-width="2" />
+        <path class="bowstring" d="M30 5 L21 25 L30 45" fill="none" stroke="var(--circuit)" stroke-width="1.1" />
+        <circle cx="12" cy="13" r="4" fill="none" stroke="var(--gold)" stroke-width="1.6" />
+        <path d="M12 17 V31 M12 21 L21 25 M12 21 L5 24 M12 31 L7 43 M12 31 L17 43"
+          fill="none" stroke="var(--gold)" stroke-width="1.6" stroke-linecap="round" />
+      </svg>
+    </div>
+    <div class="archer archer-r">
+      <svg viewBox="0 0 40 50" width="40" height="50">
+        <path d="M30 5 Q42 25 30 45" fill="none" stroke="var(--gold)" stroke-width="2" />
+        <path class="bowstring" d="M30 5 L21 25 L30 45" fill="none" stroke="var(--circuit)" stroke-width="1.1" />
+        <circle cx="12" cy="13" r="4" fill="none" stroke="var(--gold)" stroke-width="1.6" />
+        <path d="M12 17 V31 M12 21 L21 25 M12 21 L5 24 M12 31 L7 43 M12 31 L17 43"
+          fill="none" stroke="var(--gold)" stroke-width="1.6" stroke-linecap="round" />
+      </svg>
+    </div>
+    <div class="arrow arrow-l">
+      <svg viewBox="0 0 26 8" width="26" height="8"><path d="M0 4 H20 M20 4 L15 1 M20 4 L15 7" stroke="var(--gold-bright)" stroke-width="1.4" fill="none" stroke-linecap="round"/></svg>
+    </div>
+    <div class="arrow arrow-r">
+      <svg viewBox="0 0 26 8" width="26" height="8"><path d="M0 4 H20 M20 4 L15 1 M20 4 L15 7" stroke="var(--gold-bright)" stroke-width="1.4" fill="none" stroke-linecap="round"/></svg>
+    </div>
+    <div class="hit-spark"></div>
+  </div>
 
   <div class="content">
     <p class="eyebrow rune">⚜ {t("site.role")} ⚜</p>
@@ -42,7 +77,7 @@ const t = useTranslations(lang);
 
     <div class="cta">
       <a href={`/${lang}/projects`} class="seal-btn">⚒ {t("home.cta.projects")}</a>
-      <a href={`/${lang}/contact`} class="ghost-btn">✉ {t("home.cta.contact")}</a>
+      <a href={`/${lang}/contact`} id="cta-contact" class="ghost-btn">✉ {t("home.cta.contact")}</a>
     </div>
   </div>
 </section>
@@ -67,6 +102,7 @@ const t = useTranslations(lang);
     z-index: 0;
     opacity: 0.7;
     mask-image: radial-gradient(120% 90% at 50% 40%, transparent 35%, #000 100%);
+    transition: transform 0.3s ease;
   }
   .filigree .t {
     stroke-dasharray: 600;
@@ -74,15 +110,67 @@ const t = useTranslations(lang);
     animation: draw 4s ease forwards;
   }
   .filigree .t:nth-child(2) { animation-delay: 0.3s; }
-  .filigree .node {
-    opacity: 0;
-    animation: pulse 3s ease-in-out infinite;
-    animation-delay: 2s;
-  }
+  .filigree .flow { animation: flow 5s linear infinite; }
+  .filigree .flow2 { animation-duration: 6.5s; animation-delay: -2s; }
+  .filigree .flow3 { animation-duration: 7.5s; animation-delay: -1s; }
+  .filigree .node { opacity: 0; animation: pulse 3s ease-in-out infinite; animation-delay: 2s; }
+  .filigree .n2 { animation-delay: 2.4s; }
+  .filigree .n3 { animation-delay: 2.8s; }
+  .filigree .n4 { animation-delay: 3.2s; }
+  .filigree .n5 { animation-delay: 3.6s; }
+  .filigree .n6 { animation-delay: 4s; }
   @keyframes draw { to { stroke-dashoffset: 0; } }
+  @keyframes flow { to { stroke-dashoffset: -234; } }
   @keyframes pulse {
     0%, 100% { opacity: 0.3; }
     50% { opacity: 1; filter: drop-shadow(0 0 4px var(--circuit)); }
+  }
+
+  /* Okçular */
+  .archery { position: absolute; inset: 0; z-index: 2; pointer-events: none; }
+  .archer {
+    position: absolute;
+    top: clamp(6.5rem, 28%, 13rem);
+    filter: drop-shadow(0 0 6px color-mix(in srgb, var(--gold) 30%, transparent));
+    animation: archer-bob 3.5s ease-in-out infinite;
+  }
+  .archer svg { width: 32px; height: 40px; display: block; }
+  .archer-l { left: 0.35rem; }
+  .archer-r { right: 0.35rem; transform: scaleX(-1); animation-delay: -1.7s; }
+  @keyframes archer-bob { 0%,100%{ transform: translateY(0);} 50%{ transform: translateY(-4px);} }
+  .archer-r { } /* scaleX korunur */
+  @keyframes archer-bob-r { 0%,100%{ transform: scaleX(-1) translateY(0);} 50%{ transform: scaleX(-1) translateY(-4px);} }
+  .archer-r { animation-name: archer-bob-r; }
+
+  .arrow {
+    position: absolute;
+    top: 0; left: 0;
+    width: 26px; height: 8px;
+    opacity: 0;
+    filter: drop-shadow(0 0 4px var(--gold));
+    will-change: transform, opacity;
+  }
+  .hit-spark {
+    position: absolute;
+    top: 0; left: 0;
+    width: 12px; height: 12px;
+    margin: -6px 0 0 -6px;
+    border-radius: 50%;
+    opacity: 0;
+    background: radial-gradient(circle, var(--gold-bright), transparent 65%);
+    box-shadow: 0 0 18px 6px color-mix(in srgb, var(--gold) 70%, transparent);
+  }
+  .hit-spark.burst { animation: spark 0.55s ease-out; }
+  @keyframes spark {
+    0% { opacity: 0; transform: scale(0.2); }
+    40% { opacity: 1; transform: scale(1.6); }
+    100% { opacity: 0; transform: scale(2.4); }
+  }
+  /* ok isabet edince İletişime Geç parlar */
+  :global(#cta-contact.struck) {
+    border-color: var(--gold) !important;
+    color: var(--gold-bright) !important;
+    box-shadow: 0 0 0 1px var(--gold), 0 0 26px -4px color-mix(in srgb, var(--gold) 75%, transparent);
   }
 
   .content { position: relative; z-index: 1; max-width: 44rem; }
@@ -97,7 +185,6 @@ const t = useTranslations(lang);
   .greeting {
     font-family: var(--font-deco);
     color: var(--crimson);
-    /* min 1.35rem (~21.6px, bold) → WCAG "büyük metin" sınıfı, crimson 3:1 geçer */
     font-size: clamp(1.35rem, 3vw, 1.6rem);
     margin-bottom: 1.2rem;
   }
@@ -107,9 +194,16 @@ const t = useTranslations(lang);
     color: var(--ink-soft);
     margin-bottom: 2rem;
   }
+  #cta-contact { transition: border-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease, background 0.2s ease; }
   .cta { display: flex; flex-wrap: wrap; gap: 0.9rem; }
 
+  /* Okçular yalnızca geniş ekranda (yan boşluk var) */
+  @media (max-width: 900px) {
+    .archery { display: none; }
+  }
   @media (prefers-reduced-motion: reduce) {
     .filigree .t { stroke-dashoffset: 0; }
+    .filigree .flow, .archer { animation: none; }
+    .archery { display: none; }
   }
 </style>

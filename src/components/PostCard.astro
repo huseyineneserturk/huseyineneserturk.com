@@ -11,7 +11,7 @@ const href = `/${lang}/blog/${slug}`;
 const { title, description, pubDate, tags } = post.data;
 ---
 
-<article class="post-card glow-hover">
+<article class="post-card glow-hover" data-reveal>
   <a href={href}>
     <div class="meta">
       <time datetime={pubDate.toISOString()} class="rune">{formatDate(pubDate, lang)}</time>

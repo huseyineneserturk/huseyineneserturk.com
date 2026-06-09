@@ -291,6 +291,165 @@
 }
 
 /* ════════════════════════════════════════════════════════════════
+   FX — animasyonlar & etkileşimler
+   ════════════════════════════════════════════════════════════════ */
+
+/* Altın parıltı: gilded metin yavaşça "ışık alır" */
+.text-gilded {
+  background-size: 220% 100%;
+  background-position: 0% 50%;
+  animation: gild-pan 9s ease-in-out infinite;
+}
+@keyframes gild-pan {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+/* Scroll-reveal — yalnızca JS aktifken gizle (JS yoksa içerik görünür kalır) */
+html.js [data-reveal] {
+  opacity: 0;
+  transform: translateY(22px);
+  transition: opacity 0.7s ease, transform 0.7s cubic-bezier(0.2, 0.7, 0.2, 1);
+  will-change: opacity, transform;
+}
+html.js [data-reveal="fade"] { transform: none; }
+html.js [data-reveal="left"] { transform: translateX(-26px); }
+html.js [data-reveal="right"] { transform: translateX(26px); }
+html.js [data-reveal="zoom"] { transform: scale(0.94); }
+html.js [data-reveal].revealed {
+  opacity: 1;
+  transform: none;
+}
+
+/* Aydınlatılmış drop-cap: ilk görünüşte altın parlamayla belirir */
+.dropcap::first-letter,
+.prose.with-dropcap > p:first-of-type::first-letter {
+  animation: illuminate 1.4s ease both;
+}
+@keyframes illuminate {
+  0% { color: var(--ink-faint); text-shadow: 0 0 0 transparent; }
+  55% { text-shadow: 0 0 22px var(--gold); }
+  100% { color: var(--crimson); text-shadow: 0 0 14px color-mix(in srgb, var(--gold) 40%, transparent); }
+}
+
+/* 3B tilt kart — imleci takip eden altın ışık (ayrı .tilt-sheen öğesi,
+   .illuminated köşe süslemeleriyle çakışmasın diye) */
+[data-tilt] {
+  transition: transform 0.35s ease, box-shadow 0.35s ease, border-color 0.3s ease;
+}
+.tilt-sheen {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  opacity: 0;
+  z-index: 0;
+  transition: opacity 0.3s ease;
+  background: radial-gradient(
+    260px circle at var(--mx, 50%) var(--my, 50%),
+    color-mix(in srgb, var(--gold) 22%, transparent),
+    transparent 60%
+  );
+}
+[data-tilt]:hover .tilt-sheen { opacity: 1; }
+
+/* Özel imleç — parlayan rün/kıvılcım (yalnızca masaüstü, JS ekler) */
+#codex-cursor {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 14px;
+  height: 14px;
+  margin: -7px 0 0 -7px;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9999;
+  background: radial-gradient(circle, var(--gold-bright), transparent 65%);
+  box-shadow: 0 0 12px 2px color-mix(in srgb, var(--gold) 60%, transparent);
+  mix-blend-mode: screen;
+  transition: width 0.2s ease, height 0.2s ease, background 0.2s ease;
+}
+#codex-cursor.hot {
+  width: 26px;
+  height: 26px;
+  margin: -13px 0 0 -13px;
+  background: radial-gradient(circle, color-mix(in srgb, var(--circuit) 80%, transparent), transparent 60%);
+}
+@media (pointer: fine) {
+  /* sistem imlecini gizlemeden, ince bir his — yalnızca link/buton üstünde değişir */
+}
+
+/* Süzülen altın toz */
+.gold-dust {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  overflow: hidden;
+}
+.gold-dust span {
+  position: absolute;
+  bottom: -10px;
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: var(--gold);
+  opacity: 0;
+  box-shadow: 0 0 6px var(--gold);
+  animation: dust-rise linear infinite;
+}
+@keyframes dust-rise {
+  0% { transform: translateY(0) translateX(0); opacity: 0; }
+  10% { opacity: 0.7; }
+  90% { opacity: 0.5; }
+  100% { transform: translateY(-104vh) translateX(var(--drift, 20px)); opacity: 0; }
+}
+
+/* Mum mührü buton — basınca damga hissi + ışıltı sweep */
+.seal-btn { position: relative; overflow: hidden; }
+.seal-btn::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(120deg, transparent 30%, color-mix(in srgb, #fff 55%, transparent) 50%, transparent 70%);
+  transform: translateX(-120%);
+  transition: transform 0.6s ease;
+}
+.seal-btn:hover::after { transform: translateX(120%); }
+.seal-btn:active { transform: scale(0.96); }
+
+/* Kendiliğinden çizilen ayraç — merkezden dışa doğru açılır */
+.circuit-rule {
+  transform-origin: center;
+  animation: rule-draw 1.3s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+@keyframes rule-draw {
+  from { transform: scaleX(0); }
+  to { transform: scaleX(1); }
+}
+
+/* Mürekkep sayfa geçişleri (View Transitions) */
+@media (prefers-reduced-motion: no-preference) {
+  ::view-transition-old(root) { animation: ink-out 0.3s ease both; }
+  ::view-transition-new(root) { animation: ink-in 0.45s ease both; }
+}
+@keyframes ink-out {
+  to { opacity: 0; filter: blur(3px); }
+}
+@keyframes ink-in {
+  from { opacity: 0; filter: blur(4px); transform: scale(0.994); }
+}
+
+/* Tema geçişi: değişimde kısa bir yumuşama */
+.theme-shift,
+.theme-shift *,
+.theme-shift *::before,
+.theme-shift *::after {
+  transition: background-color 0.5s ease, color 0.5s ease, border-color 0.5s ease,
+    box-shadow 0.5s ease !important;
+}
+
+/* ════════════════════════════════════════════════════════════════
    Hareket azaltma tercihi
    ════════════════════════════════════════════════════════════════ */
 @media (prefers-reduced-motion: reduce) {
@@ -302,4 +461,7 @@
     transition-duration: 0.001ms !important;
     scroll-behavior: auto !important;
   }
+  /* Hareket kapalıyken içerik daima görünür, toz/imleç gizli */
+  html.js [data-reveal] { opacity: 1 !important; transform: none !important; }
+  .gold-dust, #codex-cursor { display: none !important; }
 }

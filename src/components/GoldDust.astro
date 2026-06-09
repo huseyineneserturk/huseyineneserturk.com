@@ -1,0 +1,22 @@
+---
+// Süzülen altın toz — arka planda çok hafif, yavaş zerrecikler.
+// reduced-motion'da CSS ile gizlenir. Sabit rastgele değerlerle (SSR uyumlu).
+const motes = Array.from({ length: 16 }, (_, i) => {
+  const seed = (i * 137.5) % 100;
+  return {
+    left: (seed) % 100,
+    size: 1.5 + ((i * 7) % 3),
+    duration: 16 + ((i * 5) % 16),
+    delay: -((i * 3.3) % 20),
+    drift: ((i % 2 === 0 ? 1 : -1) * (12 + ((i * 9) % 40))),
+    opacity: 0.35 + ((i % 4) * 0.12),
+  };
+});
+---
+<div class="gold-dust" aria-hidden="true">
+  {motes.map((m) => (
+    <span
+      style={`left:${m.left}%;width:${m.size}px;height:${m.size}px;animation-duration:${m.duration}s;animation-delay:${m.delay}s;--drift:${m.drift}px;`}
+    ></span>
+  ))}
+</div>

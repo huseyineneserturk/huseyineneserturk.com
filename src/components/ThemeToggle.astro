@@ -41,12 +41,4 @@ const t = useTranslations(lang);
   :global([data-theme="light"]) .icon-moon { display: none; }
 </style>
 
-<script>
-  const btn = document.getElementById("theme-toggle");
-  btn?.addEventListener("click", () => {
-    const current = document.documentElement.getAttribute("data-theme");
-    const next = current === "light" ? "dark" : "light";
-    document.documentElement.setAttribute("data-theme", next);
-    localStorage.setItem("codex-theme", next);
-  });
-</script>
+<!-- Tıklama mantığı merkezî FX motorunda (src/scripts/fx.ts) — VT sonrası da çalışır -->

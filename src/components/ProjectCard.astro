@@ -10,7 +10,8 @@ const href = `/${lang}/projects/${slug}`;
 const { title, summary, description, tech, year, category } = project.data;
 ---
 
-<article class="proj-card illuminated glow-hover">
+<article class="proj-card illuminated glow-hover" data-tilt data-reveal>
+  <span class="tilt-sheen" aria-hidden="true"></span>
   <a href={href} class="cover-link" aria-label={title}>
     <div class="head">
       <div class="meta">
@@ -46,6 +47,7 @@ const { title, summary, description, tech, year, category } = project.data;
     padding: 1.4rem;
     height: 100%;
   }
+  .proj-card > :not(.tilt-sheen) { position: relative; z-index: 1; }
   .cover-link { display: block; }
   .meta { display: flex; flex-wrap: wrap; gap: 0.6rem; align-items: center; margin-bottom: 0.6rem; }
   .crest { color: var(--gold-bright); }

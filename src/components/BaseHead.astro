@@ -63,6 +63,7 @@ const ogImage = new URL(image ?? "/og-default.svg", Astro.site);
 
 <!-- Tema flaşını engelle: body boyanmadan önce temayı uygula -->
 <script is:inline>
+  document.documentElement.classList.add("js");
   (function () {
     const stored = localStorage.getItem("codex-theme");
     const theme =

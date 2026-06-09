@@ -24,6 +24,7 @@ const minutes = Math.max(1, Math.round(readingTime(post.body ?? "").minutes));
 ---
 
 <BaseLayout lang={lang} title={`${title} — ${t("site.title")}`} description={description} type="article">
+  <div class="reading-track" aria-hidden="true"><div id="reading-progress"></div></div>
   <a href={`/${lang}/blog`} class="rune back">← {t("blog.back")}</a>
 
   <article class="post">
@@ -59,6 +60,19 @@ const minutes = Math.max(1, Math.round(readingTime(post.body ?? "").minutes));
 </BaseLayout>
 
 <style>
+  .reading-track {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    z-index: 60;
+    background: color-mix(in srgb, var(--bg-deep) 55%, transparent);
+  }
+  #reading-progress {
+    height: 100%;
+    width: 0;
+    background: linear-gradient(90deg, var(--gold), var(--circuit));
+    box-shadow: 0 0 8px var(--gold);
+  }
   .back { display: inline-block; color: var(--gold); margin-bottom: 1.5rem; }
   .back:hover { color: var(--gold-bright); }
   .head { margin-bottom: 1.5rem; }

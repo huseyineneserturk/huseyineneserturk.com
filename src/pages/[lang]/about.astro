@@ -31,8 +31,8 @@ const renderBold = (s: string) =>
   <section class="block">
     <h2 class="sec-title">{t("about.stack")}</h2>
     <div class="skills">
-      {skills.map((group) => (
-        <div class="skill-group illuminated">
+      {skills.map((group, i) => (
+        <div class="skill-group illuminated" data-reveal data-reveal-delay={i * 90}>
           <p class="rune group-label">{group.label[lang]}</p>
           <ul>
             {group.items.map((item) => <li>{item}</li>)}
@@ -45,8 +45,8 @@ const renderBold = (s: string) =>
   <section class="block">
     <h2 class="sec-title">{t("about.timeline")}</h2>
     <ol class="timeline">
-      {timeline.map((entry) => (
-        <li>
+      {timeline.map((entry, i) => (
+        <li data-reveal="left" data-reveal-delay={i * 90}>
           <span class="year rune">{entry.year}</span>
           <div class="node" aria-hidden="true"></div>
           <div class="entry">
