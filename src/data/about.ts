@@ -22,11 +22,11 @@ export const skills: SkillGroup[] = [
     items: ["Java", "C#", "Python", "TypeScript", "Dart"],
   },
   {
-    label: { tr: "Backend & Çatılar", en: "Backend & Frameworks" },
+    label: { tr: "Backend & Frameworks", en: "Backend & Frameworks" },
     items: ["Spring Boot", "FastAPI", "Next.js", "Flutter", "LangChain"],
   },
   {
-    label: { tr: "Veritabanı & Önbellek", en: "Databases & Caching" },
+    label: { tr: "Veritabanı & Cache", en: "Databases & Caching" },
     items: ["PostgreSQL", "MySQL", "MongoDB", "SQL Server", "Redis"],
   },
   {

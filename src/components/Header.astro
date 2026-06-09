@@ -129,20 +129,20 @@ const isActive = (href: string) =>
   .menu-btn[aria-expanded="true"] span:nth-child(3) { transform: translateY(-5.5px) rotate(-45deg); }
 
   .nav-mobile {
-    display: grid;
-    grid-template-rows: 0fr;
     overflow: hidden;
+    max-height: 0;
     visibility: hidden; /* kapalıyken bağlantılar tab sırasından çıksın */
-    transition: grid-template-rows 0.3s ease, visibility 0.3s;
-  }
-  .nav-mobile.open { grid-template-rows: 1fr; visibility: visible; }
-  .nav-mobile > * { min-height: 0; }
-  .nav-mobile {
     padding: 0 1.5rem;
+    background: color-mix(in srgb, var(--bg) 92%, transparent);
+    transition: max-height 0.32s ease, visibility 0.32s;
+  }
+  .nav-mobile.open {
+    max-height: 24rem; /* 5 bağlantıyı rahatça alır */
+    visibility: visible;
   }
   .nav-mobile .nav-link {
     display: block;
-    padding: 0.75rem 0;
+    padding: 0.85rem 0;
     border-bottom: 1px solid var(--line);
   }
 
