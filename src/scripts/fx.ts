@@ -222,6 +222,21 @@ function initArchery() {
   window.setInterval(fire, 5800);
 }
 
+// ---- 9) Mum mührü "başa dön" butonu ----------------------------------
+function initToTop() {
+  const btn = document.getElementById("to-top");
+  if (!btn || btn.dataset.bound) return;
+  btn.dataset.bound = "1";
+  const onScroll = () => {
+    btn.classList.toggle("show", window.scrollY > 600);
+  };
+  window.addEventListener("scroll", onScroll, { passive: true });
+  onScroll();
+  btn.addEventListener("click", () => {
+    window.scrollTo({ top: 0, behavior: reduceMotion() ? "auto" : "smooth" });
+  });
+}
+
 // Güvenlik ağı: herhangi bir hata olursa içerik asla gizli kalmasın
 function revealAllFallback() {
   document
@@ -240,6 +255,7 @@ function initFx() {
     initThemeToggle,
     initMenu,
     initArchery,
+    initToTop,
   ];
   for (const step of steps) {
     try {

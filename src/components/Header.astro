@@ -91,17 +91,32 @@ const isActive = (href: string) =>
 
   .nav-desktop { display: none; gap: 0.35rem; }
   .nav-link {
+    position: relative;
     font-family: var(--font-mono);
     font-size: 0.78rem;
     letter-spacing: 0.06em;
     text-transform: uppercase;
     padding: 0.5rem 0.8rem;
     color: var(--ink-soft);
-    border-bottom: 1px solid transparent;
-    transition: color 0.2s ease, border-color 0.2s ease;
+    transition: color 0.2s ease;
+  }
+  /* Mürekkep çizgisi: hover'da soldan sağa çizilir */
+  .nav-link::after {
+    content: "";
+    position: absolute;
+    left: 0.8rem;
+    right: 0.8rem;
+    bottom: 0;
+    height: 1px;
+    background: linear-gradient(90deg, var(--gold), var(--circuit));
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.3s ease;
   }
   .nav-link:hover { color: var(--gold-bright); }
-  .nav-link.active { color: var(--gold-bright); border-color: var(--gold); }
+  .nav-link:hover::after { transform: scaleX(1); }
+  .nav-link.active { color: var(--gold-bright); }
+  .nav-link.active::after { transform: scaleX(1); }
 
   .controls { display: flex; align-items: center; gap: 0.6rem; }
 

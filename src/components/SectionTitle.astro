@@ -18,6 +18,15 @@ const { eyebrow, title, href, cta } = Astro.props;
     margin-bottom: 1.6rem;
   }
   .section-title h2 { font-size: clamp(1.5rem, 3.5vw, 2.1rem); margin-top: 0.3rem; }
+  /* Altın süsleme çizgisi — başlığın altında sola yaslı, sönerek biter */
+  .section-title h2::after {
+    content: "";
+    display: block;
+    margin-top: 0.5rem;
+    height: 1px;
+    width: 5.5rem;
+    background: linear-gradient(90deg, var(--gold), var(--circuit) 70%, transparent);
+  }
   .more { color: var(--gold); white-space: nowrap; transition: color 0.2s ease; }
   .more:hover { color: var(--gold-bright); }
 </style>

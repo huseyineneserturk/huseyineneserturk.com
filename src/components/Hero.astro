@@ -80,6 +80,8 @@ const t = useTranslations(lang);
       <a href={`/${lang}/contact`} id="cta-contact" class="ghost-btn">✉ {t("home.cta.contact")}</a>
     </div>
   </div>
+
+  <div class="scroll-hint" aria-hidden="true">⌄</div>
 </section>
 
 <style>
@@ -196,6 +198,25 @@ const t = useTranslations(lang);
   }
   #cta-contact { transition: border-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease, background 0.2s ease; }
   .cta { display: flex; flex-wrap: wrap; gap: 0.9rem; }
+
+  /* Kaydırma ipucu — altın, yavaşça süzülür */
+  .scroll-hint {
+    position: absolute;
+    left: 50%;
+    bottom: 0.4rem;
+    transform: translateX(-50%);
+    z-index: 1;
+    color: var(--gold);
+    font-size: 1.4rem;
+    line-height: 1;
+    opacity: 0.7;
+    animation: hint-bob 2.4s ease-in-out infinite;
+    text-shadow: 0 0 10px color-mix(in srgb, var(--gold) 50%, transparent);
+  }
+  @keyframes hint-bob {
+    0%, 100% { transform: translate(-50%, 0); opacity: 0.45; }
+    50% { transform: translate(-50%, 7px); opacity: 0.95; }
+  }
 
   /* Okçular yalnızca geniş ekranda (yan boşluk var) */
   @media (max-width: 900px) {

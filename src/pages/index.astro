@@ -1,5 +1,7 @@
 ---
-// Kök URL → tarayıcı diline göre TR/EN'e yönlendir.
+// Kök URL → tarayıcı diline göre TR/EN'e anında yönlendir.
+// Script <head> içinde olduğu için gövde çizilmeden çalışır;
+// koyu zemin sayesinde beyaz flaş görünmez.
 ---
 <!doctype html>
 <html lang="tr">
@@ -9,18 +11,49 @@
     <title>Hüseyin Enes Ertürk — Codex</title>
     <link rel="canonical" href="https://www.huseyineneserturk.com/tr/" />
     <meta name="robots" content="noindex" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="theme-color" content="#0c0e17" />
     <script is:inline>
-      const lang = (navigator.language || "tr").toLowerCase().startsWith("en")
-        ? "en"
-        : "tr";
-      window.location.replace("/" + lang + "/");
+      (function () {
+        var l = (navigator.language || "tr").toLowerCase().indexOf("en") === 0 ? "en" : "tr";
+        location.replace("/" + l + "/");
+      })();
     </script>
     <noscript><meta http-equiv="refresh" content="0; url=/tr/" /></noscript>
+    <style>
+      html, body {
+        margin: 0;
+        height: 100%;
+        background: #0c0e17;
+        color: #e7dcc2;
+        font-family: Georgia, "Times New Roman", serif;
+      }
+      .wrap {
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 1.1rem;
+      }
+      .seal {
+        width: 44px;
+        height: 44px;
+        border: 2px solid #c9a227;
+        border-top-color: transparent;
+        border-radius: 50%;
+        animation: spin 0.9s linear infinite;
+      }
+      @keyframes spin { to { transform: rotate(360deg); } }
+      @media (prefers-reduced-motion: reduce) { .seal { animation: none; } }
+      .links { font-size: 0.9rem; opacity: 0.85; letter-spacing: 0.04em; }
+      a { color: #c9a227; }
+    </style>
   </head>
   <body>
-    <p style="font-family: serif; padding: 2rem;">
-      Yönlendiriliyor… / Redirecting…
-      <a href="/tr/">Türkçe</a> · <a href="/en/">English</a>
-    </p>
+    <div class="wrap">
+      <div class="seal" aria-hidden="true"></div>
+      <p class="links"><a href="/tr/">Türkçe</a> · <a href="/en/">English</a></p>
+    </div>
   </body>
 </html>
