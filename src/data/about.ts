@@ -59,7 +59,7 @@ export const timeline: TimelineEntry[] = [
     },
   },
   {
-    year: "2025",
+    year: "2024",
     title: { tr: "Oyun ve Uygulama Akademisi", en: "Game & Application Academy" },
     detail: {
       tr: "Google Oyun ve Uygulama Akademisi; App Jam takım projeleri (SayCheese, Quizz.AI).",
@@ -75,7 +75,7 @@ export const timeline: TimelineEntry[] = [
     },
   },
   {
-    year: "2024 →",
+    year: "2023 →",
     title: { tr: "Yazılım Mühendisliği", en: "Software Engineering" },
     detail: {
       tr: "Lisans eğitimi; backend ve dağıtık sistemlere artan bir tutkuyla yoğunlaşma.",
