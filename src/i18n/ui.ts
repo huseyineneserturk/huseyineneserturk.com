@@ -74,7 +74,6 @@ export const ui = {
     "promo.aob.title": "AGE OF BLOCKS",
     "promo.aob.subtitle": "Orta Çağ RTS Savaşı",
     "promo.aob.play": "Hemen Oyna ⚔",
-    "promo.aob.close": "Kapat",
   },
   en: {
     "nav.home": "Home",
@@ -139,7 +138,6 @@ export const ui = {
     "promo.aob.title": "AGE OF BLOCKS",
     "promo.aob.subtitle": "Medieval RTS Battle",
     "promo.aob.play": "Play Now ⚔",
-    "promo.aob.close": "Dismiss",
   },
 } as const;
 

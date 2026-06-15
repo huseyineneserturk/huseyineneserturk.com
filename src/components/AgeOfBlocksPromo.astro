@@ -8,53 +8,93 @@ const t = useTranslations(lang);
 ---
 
 <div class="aob-promo-container" id="aob-promo">
-  <!-- Desktop View: Arm & Swinging Sign -->
+  <!-- Desktop View: Detailed Armored Gauntlet Arm & Swinging Sign -->
   <div class="aob-desktop">
     <div class="aob-arm-holder">
-      <svg width="220" height="90" viewBox="0 0 220 90" fill="none" class="aob-arm-svg" aria-hidden="true">
-        <!-- Arm background/sleeve -->
-        <path d="M0 25 L120 25 L130 35 L120 45 L0 45 Z" fill="var(--bg-deep)" stroke="var(--line)" stroke-width="1.5" />
-        
-        <!-- Circuit line on sleeve -->
-        <path d="M0 35 H115" stroke="var(--line-strong)" stroke-width="1.5" />
-        <path d="M20 35 L30 27 H60 L70 35" stroke="var(--circuit)" stroke-width="1.2" opacity="0.6" />
-        <circle cx="60" cy="27" r="2" fill="var(--circuit)" opacity="0.8" />
-        
-        <!-- Armored plate 1 (forearm) -->
-        <path d="M10 20 L90 20 L100 35 L90 50 L10 50 Z" fill="#2d3748" stroke="var(--gold)" stroke-width="1.5" />
-        
-        <!-- Armored plate 2 (wrist) -->
-        <path d="M95 18 L125 18 L130 35 L125 52 L95 52 Z" fill="#4a5568" stroke="var(--gold-bright)" stroke-width="1.5" />
-        
-        <!-- Gauntlet hand (fist) -->
-        <!-- Knuckle guards -->
-        <circle cx="138" cy="26" r="6" fill="#718096" stroke="var(--gold)" stroke-width="1" />
-        <circle cx="144" cy="33" r="6" fill="#718096" stroke="var(--gold)" stroke-width="1" />
-        <circle cx="142" cy="41" r="6" fill="#718096" stroke="var(--gold)" stroke-width="1" />
-        <circle cx="136" cy="48" r="6" fill="#718096" stroke="var(--gold)" stroke-width="1" />
-        
-        <!-- Thumb guard -->
-        <path d="M125 33 Q135 23 140 30 Z" fill="#4a5568" stroke="var(--gold)" stroke-width="1.2" />
+      <svg width="240" height="120" viewBox="0 0 240 120" fill="none" class="aob-arm-svg" aria-hidden="true">
+        <defs>
+          <!-- Steel texture gradient (light) -->
+          <linearGradient id="metal-grad" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stop-color="#cbd5e1" />
+            <stop offset="40%" stop-color="#94a3b8" />
+            <stop offset="80%" stop-color="#64748b" />
+            <stop offset="100%" stop-color="#475569" />
+          </linearGradient>
+          <!-- Steel texture gradient (dark/shadow) -->
+          <linearGradient id="metal-grad-dark" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stop-color="#475569" />
+            <stop offset="70%" stop-color="#334155" />
+            <stop offset="100%" stop-color="#1e293b" />
+          </linearGradient>
+        </defs>
 
-        <!-- Iron Ring held by fist -->
-        <path d="M136 17 C148 17 148 49 136 49" stroke="#718096" stroke-width="3" fill="none" stroke-linecap="round" />
+        <!-- Elbow Couter (Elbow guard) -->
+        <path d="M0 20 C20 10, 35 25, 35 55 C35 85, 20 100, 0 90 Z" fill="url(#metal-grad)" stroke="var(--gold)" stroke-width="1.8" />
+        <path d="M5 25 L25 35 L20 55 L25 75 L5 85" fill="none" stroke="var(--gold-bright)" stroke-width="1.2" opacity="0.7" />
+
+        <!-- Vambrace (Forearm Armor) -->
+        <path d="M35 32 L120 25 L130 55 L120 85 L35 78 Z" fill="url(#metal-grad-dark)" stroke="var(--gold)" stroke-width="1.8" />
+        <!-- Ridge -->
+        <path d="M35 55 H123" stroke="var(--gold-bright)" stroke-width="1.2" opacity="0.6" />
+        <!-- Circuit Glow Line (Codex theme) -->
+        <path d="M45 42 L60 35 H95 L110 42" stroke="var(--circuit)" stroke-width="1.5" stroke-linecap="round" opacity="0.85" class="circuit-glow" />
+        <circle cx="95" cy="35" r="2.5" fill="var(--circuit)" opacity="0.9" />
+
+        <!-- Gold Rivets on Forearm -->
+        <circle cx="50" cy="40" r="2" fill="var(--gold-bright)" stroke="var(--gold)" stroke-width="0.5" />
+        <circle cx="80" cy="38" r="2" fill="var(--gold-bright)" stroke="var(--gold)" stroke-width="0.5" />
+        <circle cx="110" cy="36" r="2" fill="var(--gold-bright)" stroke="var(--gold)" stroke-width="0.5" />
+        <circle cx="50" cy="70" r="2" fill="var(--gold-bright)" stroke="var(--gold)" stroke-width="0.5" />
+        <circle cx="80" cy="72" r="2" fill="var(--gold-bright)" stroke="var(--gold)" stroke-width="0.5" />
+        <circle cx="110" cy="74" r="2" fill="var(--gold-bright)" stroke="var(--gold)" stroke-width="0.5" />
+
+        <!-- Wrist Joint (Overlapping Scale Plates) -->
+        <path d="M120 25 L135 27 L140 55 L135 83 L120 85 Z" fill="url(#metal-grad)" stroke="var(--gold)" stroke-width="1.2" />
+        <path d="M130 27 L143 29 L148 55 L143 81 L130 83 Z" fill="url(#metal-grad-dark)" stroke="var(--gold)" stroke-width="1.2" />
+
+        <!-- Iron Ring (Held in fist, rendered behind fingers) -->
+        <path d="M148 20 C170 20, 170 90, 148 90" stroke="#334155" stroke-width="4.5" fill="none" stroke-linecap="round" />
+        <path d="M148 20 C170 20, 170 90, 148 90" stroke="var(--gold)" stroke-width="1.2" fill="none" stroke-linecap="round" opacity="0.5" />
+
+        <!-- Gauntlet Hand Backplate -->
+        <path d="M143 29 L155 32 L160 55 L155 78 L143 81 Z" fill="url(#metal-grad)" stroke="var(--gold-bright)" stroke-width="1.5" />
+        <path d="M150 35 L158 55 L150 75" stroke="var(--gold)" stroke-width="1" fill="none" opacity="0.7" />
+
+        <!-- Clenched Fingers wrapping around the ring -->
+        <!-- Index Finger -->
+        <path d="M152 32 C168 32, 174 46, 156 48 Z" fill="url(#metal-grad-dark)" stroke="var(--gold)" stroke-width="1.2" />
+        <path d="M154 36 Q166 36 166 40" stroke="#e2e8f0" stroke-width="1" fill="none" opacity="0.6" />
+        <!-- Middle Finger -->
+        <path d="M155 41 C171 41, 177 55, 158 57 Z" fill="url(#metal-grad-dark)" stroke="var(--gold)" stroke-width="1.2" />
+        <path d="M157 45 Q169 45 169 49" stroke="#e2e8f0" stroke-width="1" fill="none" opacity="0.6" />
+        <!-- Ring Finger -->
+        <path d="M153 50 C169 50, 175 64, 156 66 Z" fill="url(#metal-grad-dark)" stroke="var(--gold)" stroke-width="1.2" />
+        <path d="M155 54 Q167 54 167 58" stroke="#e2e8f0" stroke-width="1" fill="none" opacity="0.6" />
+        <!-- Pinky Finger -->
+        <path d="M149 59 C163 59, 169 71, 152 73 Z" fill="url(#metal-grad-dark)" stroke="var(--gold)" stroke-width="1.2" />
+        <!-- Thumb Guard -->
+        <path d="M138 52 Q152 48, 155 58 Q145 66, 138 58 Z" fill="url(#metal-grad)" stroke="var(--gold-bright)" stroke-width="1.2" />
+
+        <!-- Hanging Gold Chains (Interlocking Links) -->
+        <!-- Left Chain -->
+        <ellipse cx="152" cy="91" rx="2.5" ry="6" fill="none" stroke="var(--gold)" stroke-width="1.8" />
+        <rect x="149.5" y="95" width="5" height="3" rx="1" fill="var(--gold-bright)" />
+        <ellipse cx="152" cy="103" rx="2.5" ry="6" fill="none" stroke="var(--gold)" stroke-width="1.8" />
+        <rect x="149.5" y="107" width="5" height="3" rx="1" fill="var(--gold-bright)" />
+        <ellipse cx="152" cy="115" rx="2.5" ry="6" fill="none" stroke="var(--gold)" stroke-width="1.8" />
         
-        <!-- Chains hanging down -->
-        <!-- Left chain -->
-        <path d="M141 45 L141 85" stroke="var(--gold)" stroke-width="2" stroke-dasharray="2 3" />
-        <!-- Right chain -->
-        <path d="M147 43 Q162 55 162 85" stroke="var(--gold)" stroke-width="2" stroke-dasharray="2 3" fill="none" />
+        <!-- Right Chain -->
+        <ellipse cx="166" cy="88" rx="2.5" ry="6" fill="none" stroke="var(--gold)" stroke-width="1.8" />
+        <rect x="163.5" y="92" width="5" height="3" rx="1" fill="var(--gold-bright)" />
+        <ellipse cx="166" cy="100" rx="2.5" ry="6" fill="none" stroke="var(--gold)" stroke-width="1.8" />
+        <rect x="163.5" y="104" width="5" height="3" rx="1" fill="var(--gold-bright)" />
+        <ellipse cx="166" cy="112" rx="2.5" ry="6" fill="none" stroke="var(--gold)" stroke-width="1.8" />
       </svg>
     </div>
 
     <!-- Sign Board -->
     <a href="https://ageofblocks.games" target="_blank" rel="noopener noreferrer" class="aob-sign-link">
       <div class="aob-sign">
-        <!-- Close Button (with event.stopPropagation to avoid triggering link) -->
-        <button type="button" class="aob-close" id="aob-close-btn" aria-label={t("promo.aob.close")} title={t("promo.aob.close")}>
-          <span>×</span>
-        </button>
-
         <div class="aob-sign-inner">
           <div class="aob-seal-badge">
             <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
@@ -84,48 +124,8 @@ const t = useTranslations(lang);
         <path d="M10 12h4" />
       </svg>
     </a>
-    <button type="button" class="aob-mobile-close" id="aob-close-mobile" aria-label={t("promo.aob.close")} title={t("promo.aob.close")}>
-      <span>×</span>
-    </button>
   </div>
 </div>
-
-<script>
-  const initAoBPromo = () => {
-    const container = document.getElementById("aob-promo");
-    if (!container) return;
-
-    // Check if dismissed
-    if (localStorage.getItem("aob-dismissed") === "true") {
-      container.classList.add("dismissed");
-      return;
-    }
-
-    const closeBtn = document.getElementById("aob-close-btn");
-    if (closeBtn) {
-      closeBtn.addEventListener("click", (e) => {
-        e.stopPropagation();
-        e.preventDefault();
-        container.classList.add("dismissed");
-        localStorage.setItem("aob-dismissed", "true");
-      });
-    }
-
-    const closeMobileBtn = document.getElementById("aob-close-mobile");
-    if (closeMobileBtn) {
-      closeMobileBtn.addEventListener("click", (e) => {
-        e.stopPropagation();
-        e.preventDefault();
-        container.classList.add("dismissed");
-        localStorage.setItem("aob-dismissed", "true");
-      });
-    }
-  };
-
-  // Run on initial load & Astro View Transitions swaps
-  initAoBPromo();
-  document.addEventListener("astro:after-swap", initAoBPromo);
-</script>
 
 <style>
   .aob-promo-container {
@@ -135,18 +135,15 @@ const t = useTranslations(lang);
     z-index: 95;
     pointer-events: none;
   }
-  .aob-promo-container.dismissed {
-    display: none !important;
-  }
 
   /* Desktop View */
   .aob-desktop {
     display: none;
     pointer-events: auto;
     position: relative;
-    width: 250px;
+    width: 270px;
     /* Translate left so arm sleeve is offscreen, fist and chains peek out slightly */
-    transform: translateX(-135px);
+    transform: translateX(-150px);
     transition: transform 0.5s cubic-bezier(0.19, 1, 0.22, 1);
   }
 
@@ -163,17 +160,27 @@ const t = useTranslations(lang);
 
   /* Arm SVG holder */
   .aob-arm-holder {
-    width: 220px;
-    height: 90px;
-    filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.5));
+    width: 240px;
+    height: 120px;
+    filter: drop-shadow(0 6px 12px rgba(0, 0, 0, 0.5));
+  }
+
+  /* Circuit Glow Line Animation */
+  .circuit-glow {
+    stroke-dasharray: 8 40;
+    animation: flow 3s linear infinite;
+  }
+  
+  @keyframes flow {
+    to { stroke-dashoffset: -48; }
   }
 
   /* Sign Link */
   .aob-sign-link {
     display: block;
     position: absolute;
-    top: 72px; /* Hangs below the hand */
-    left: 65px; /* Aligned with gauntlet fist */
+    top: 102px; /* Hangs below the hand */
+    left: 74px; /* Aligned with gauntlet fist */
     width: 165px;
     perspective: 800px;
     cursor: pointer;
@@ -271,40 +278,6 @@ const t = useTranslations(lang);
     box-shadow: 0 3px 8px rgba(0, 0, 0, 0.5), 0 0 10px rgba(240, 210, 122, 0.4);
   }
 
-  /* Close Buttons */
-  .aob-close {
-    position: absolute;
-    top: -8px;
-    right: -8px;
-    width: 20px;
-    height: 20px;
-    border-radius: 50%;
-    background: radial-gradient(circle at 35% 30%, var(--gold), var(--gold-bright) 75%);
-    border: 1px solid var(--gold-bright);
-    color: var(--bg-deep);
-    font-size: 0.7rem;
-    font-weight: bold;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
-    opacity: 0;
-    transition: opacity 0.3s ease, transform 0.2s ease;
-    z-index: 10;
-  }
-
-  .aob-desktop:hover .aob-close {
-    opacity: 0.7;
-  }
-  .aob-desktop:hover .aob-close:hover {
-    opacity: 1;
-    transform: scale(1.15);
-    background: radial-gradient(circle at 35% 30%, var(--crimson), #8a2724 75%);
-    border-color: #f0d27a;
-    color: var(--ink);
-  }
-
   /* Mobile View: Wax Seal Badge */
   .aob-mobile {
     display: flex;
@@ -345,32 +318,5 @@ const t = useTranslations(lang);
     box-shadow: 
       0 12px 26px -10px #000000a8,
       0 0 24px -4px color-mix(in srgb, var(--crimson) 80%, transparent);
-  }
-
-  .aob-mobile-close {
-    position: absolute;
-    top: -6px;
-    right: -6px;
-    width: 18px;
-    height: 18px;
-    border-radius: 50%;
-    background: radial-gradient(circle at 35% 30%, var(--gold-bright), var(--gold) 75%);
-    border: 1px solid var(--gold-bright);
-    color: var(--bg-deep);
-    font-size: 0.6rem;
-    font-weight: bold;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
-    z-index: 10;
-    transition: transform 0.2s ease;
-  }
-
-  .aob-mobile-close:hover {
-    transform: scale(1.1);
-    background: radial-gradient(circle at 35% 30%, var(--crimson), #8a2724 75%);
-    color: var(--ink);
   }
 </style>
