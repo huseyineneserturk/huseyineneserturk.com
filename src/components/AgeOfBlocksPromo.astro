@@ -1,0 +1,376 @@
+---
+import { useTranslations, type Lang } from "@/i18n/ui";
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+---
+
+<div class="aob-promo-container" id="aob-promo">
+  <!-- Desktop View: Arm & Swinging Sign -->
+  <div class="aob-desktop">
+    <div class="aob-arm-holder">
+      <svg width="220" height="90" viewBox="0 0 220 90" fill="none" class="aob-arm-svg" aria-hidden="true">
+        <!-- Arm background/sleeve -->
+        <path d="M0 25 L120 25 L130 35 L120 45 L0 45 Z" fill="var(--bg-deep)" stroke="var(--line)" stroke-width="1.5" />
+        
+        <!-- Circuit line on sleeve -->
+        <path d="M0 35 H115" stroke="var(--line-strong)" stroke-width="1.5" />
+        <path d="M20 35 L30 27 H60 L70 35" stroke="var(--circuit)" stroke-width="1.2" opacity="0.6" />
+        <circle cx="60" cy="27" r="2" fill="var(--circuit)" opacity="0.8" />
+        
+        <!-- Armored plate 1 (forearm) -->
+        <path d="M10 20 L90 20 L100 35 L90 50 L10 50 Z" fill="#2d3748" stroke="var(--gold)" stroke-width="1.5" />
+        
+        <!-- Armored plate 2 (wrist) -->
+        <path d="M95 18 L125 18 L130 35 L125 52 L95 52 Z" fill="#4a5568" stroke="var(--gold-bright)" stroke-width="1.5" />
+        
+        <!-- Gauntlet hand (fist) -->
+        <!-- Knuckle guards -->
+        <circle cx="138" cy="26" r="6" fill="#718096" stroke="var(--gold)" stroke-width="1" />
+        <circle cx="144" cy="33" r="6" fill="#718096" stroke="var(--gold)" stroke-width="1" />
+        <circle cx="142" cy="41" r="6" fill="#718096" stroke="var(--gold)" stroke-width="1" />
+        <circle cx="136" cy="48" r="6" fill="#718096" stroke="var(--gold)" stroke-width="1" />
+        
+        <!-- Thumb guard -->
+        <path d="M125 33 Q135 23 140 30 Z" fill="#4a5568" stroke="var(--gold)" stroke-width="1.2" />
+
+        <!-- Iron Ring held by fist -->
+        <path d="M136 17 C148 17 148 49 136 49" stroke="#718096" stroke-width="3" fill="none" stroke-linecap="round" />
+        
+        <!-- Chains hanging down -->
+        <!-- Left chain -->
+        <path d="M141 45 L141 85" stroke="var(--gold)" stroke-width="2" stroke-dasharray="2 3" />
+        <!-- Right chain -->
+        <path d="M147 43 Q162 55 162 85" stroke="var(--gold)" stroke-width="2" stroke-dasharray="2 3" fill="none" />
+      </svg>
+    </div>
+
+    <!-- Sign Board -->
+    <a href="https://ageofblocks.games" target="_blank" rel="noopener noreferrer" class="aob-sign-link">
+      <div class="aob-sign">
+        <!-- Close Button (with event.stopPropagation to avoid triggering link) -->
+        <button type="button" class="aob-close" id="aob-close-btn" aria-label={t("promo.aob.close")} title={t("promo.aob.close")}>
+          <span>×</span>
+        </button>
+
+        <div class="aob-sign-inner">
+          <div class="aob-seal-badge">
+            <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M3 21h18" />
+              <path d="M19 21 V8 h-2 V6 h-2 v2 h-2 V6 h-2 v2 h-2 V6 H7 v2 H5 V21" />
+              <path d="M10 21v-4a2 2 0 0 1 4 0v4" />
+              <path d="M12 10v4" />
+              <path d="M10 12h4" />
+            </svg>
+          </div>
+          <h4 class="aob-title">{t("promo.aob.title")}</h4>
+          <p class="aob-subtitle">{t("promo.aob.subtitle")}</p>
+          <span class="aob-btn">{t("promo.aob.play")}</span>
+        </div>
+      </div>
+    </a>
+  </div>
+
+  <!-- Mobile View: Floating Wax Seal Badge -->
+  <div class="aob-mobile">
+    <a href="https://ageofblocks.games" target="_blank" rel="noopener noreferrer" class="aob-mobile-seal" aria-label={t("promo.aob.title")}>
+      <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M3 21h18" />
+        <path d="M19 21 V8 h-2 V6 h-2 v2 h-2 V6 h-2 v2 h-2 V6 H7 v2 H5 V21" />
+        <path d="M10 21v-4a2 2 0 0 1 4 0v4" />
+        <path d="M12 10v4" />
+        <path d="M10 12h4" />
+      </svg>
+    </a>
+    <button type="button" class="aob-mobile-close" id="aob-close-mobile" aria-label={t("promo.aob.close")} title={t("promo.aob.close")}>
+      <span>×</span>
+    </button>
+  </div>
+</div>
+
+<script>
+  const initAoBPromo = () => {
+    const container = document.getElementById("aob-promo");
+    if (!container) return;
+
+    // Check if dismissed
+    if (localStorage.getItem("aob-dismissed") === "true") {
+      container.classList.add("dismissed");
+      return;
+    }
+
+    const closeBtn = document.getElementById("aob-close-btn");
+    if (closeBtn) {
+      closeBtn.addEventListener("click", (e) => {
+        e.stopPropagation();
+        e.preventDefault();
+        container.classList.add("dismissed");
+        localStorage.setItem("aob-dismissed", "true");
+      });
+    }
+
+    const closeMobileBtn = document.getElementById("aob-close-mobile");
+    if (closeMobileBtn) {
+      closeMobileBtn.addEventListener("click", (e) => {
+        e.stopPropagation();
+        e.preventDefault();
+        container.classList.add("dismissed");
+        localStorage.setItem("aob-dismissed", "true");
+      });
+    }
+  };
+
+  // Run on initial load & Astro View Transitions swaps
+  initAoBPromo();
+  document.addEventListener("astro:after-swap", initAoBPromo);
+</script>
+
+<style>
+  .aob-promo-container {
+    position: fixed;
+    left: 0;
+    top: 35%;
+    z-index: 95;
+    pointer-events: none;
+  }
+  .aob-promo-container.dismissed {
+    display: none !important;
+  }
+
+  /* Desktop View */
+  .aob-desktop {
+    display: none;
+    pointer-events: auto;
+    position: relative;
+    width: 250px;
+    /* Translate left so arm sleeve is offscreen, fist and chains peek out slightly */
+    transform: translateX(-135px);
+    transition: transform 0.5s cubic-bezier(0.19, 1, 0.22, 1);
+  }
+
+  @media (min-width: 1024px) {
+    .aob-desktop {
+      display: block;
+    }
+  }
+
+  /* Slide out fully on hover */
+  .aob-desktop:hover {
+    transform: translateX(0);
+  }
+
+  /* Arm SVG holder */
+  .aob-arm-holder {
+    width: 220px;
+    height: 90px;
+    filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.5));
+  }
+
+  /* Sign Link */
+  .aob-sign-link {
+    display: block;
+    position: absolute;
+    top: 72px; /* Hangs below the hand */
+    left: 65px; /* Aligned with gauntlet fist */
+    width: 165px;
+    perspective: 800px;
+    cursor: pointer;
+  }
+
+  /* The Sign Board */
+  .aob-sign {
+    position: relative;
+    background: radial-gradient(circle at 50% 50%, var(--surface-solid), var(--bg-deep));
+    border: 2px solid var(--gold);
+    border-radius: 4px;
+    padding: 0.8rem 0.5rem;
+    box-shadow: 
+      0 10px 25px -10px rgba(0, 0, 0, 0.8),
+      0 0 15px -3px color-mix(in srgb, var(--gold) 35%, transparent),
+      inset 0 0 10px rgba(0, 0, 0, 0.6);
+    text-align: center;
+    transform-origin: top center;
+    transition: box-shadow 0.3s ease, border-color 0.3s ease;
+    animation: gentle-sway 3.5s ease-in-out infinite alternate;
+  }
+
+  /* Faster swinging on hover to simulate momentum */
+  .aob-desktop:hover .aob-sign {
+    animation: slide-swing-in 1.4s ease-out 1 forwards, gentle-sway 3.5s ease-in-out 1.4s infinite alternate;
+    border-color: var(--gold-bright);
+    box-shadow: 
+      0 12px 30px -8px rgba(0, 0, 0, 0.9),
+      0 0 25px -2px color-mix(in srgb, var(--gold-bright) 65%, transparent),
+      inset 0 0 15px rgba(0, 0, 0, 0.5);
+  }
+
+  @keyframes slide-swing-in {
+    0% { transform: rotate(0deg); }
+    25% { transform: rotate(-8deg); }
+    50% { transform: rotate(6deg); }
+    75% { transform: rotate(-3deg); }
+    100% { transform: rotate(0deg); }
+  }
+
+  @keyframes gentle-sway {
+    0% { transform: rotate(-2.5deg); }
+    100% { transform: rotate(2.5deg); }
+  }
+
+  .aob-sign-inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.3rem;
+  }
+
+  .aob-seal-badge {
+    color: var(--gold-bright);
+    margin-bottom: 0.1rem;
+    filter: drop-shadow(0 0 4px var(--gold));
+  }
+
+  .aob-title {
+    font-family: var(--font-display);
+    font-size: 0.9rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    color: var(--ink);
+    margin: 0;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.6);
+  }
+
+  .aob-subtitle {
+    font-family: var(--font-serif);
+    font-size: 0.7rem;
+    font-style: italic;
+    color: var(--ink-soft);
+    margin: 0;
+    line-height: 1.25;
+  }
+
+  .aob-btn {
+    display: inline-block;
+    margin-top: 0.4rem;
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    font-weight: bold;
+    color: var(--bg-deep);
+    background: radial-gradient(circle at 35% 30%, var(--gold-bright), var(--gold) 75%);
+    border: 1px solid var(--gold-bright);
+    border-radius: 2px;
+    padding: 0.25rem 0.5rem;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.4);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .aob-desktop:hover .aob-btn {
+    transform: scale(1.05);
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.5), 0 0 10px rgba(240, 210, 122, 0.4);
+  }
+
+  /* Close Buttons */
+  .aob-close {
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 35% 30%, var(--gold), var(--gold-bright) 75%);
+    border: 1px solid var(--gold-bright);
+    color: var(--bg-deep);
+    font-size: 0.7rem;
+    font-weight: bold;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+    opacity: 0;
+    transition: opacity 0.3s ease, transform 0.2s ease;
+    z-index: 10;
+  }
+
+  .aob-desktop:hover .aob-close {
+    opacity: 0.7;
+  }
+  .aob-desktop:hover .aob-close:hover {
+    opacity: 1;
+    transform: scale(1.15);
+    background: radial-gradient(circle at 35% 30%, var(--crimson), #8a2724 75%);
+    border-color: #f0d27a;
+    color: var(--ink);
+  }
+
+  /* Mobile View: Wax Seal Badge */
+  .aob-mobile {
+    display: flex;
+    pointer-events: auto;
+    position: fixed;
+    left: 1.2rem;
+    bottom: 1.2rem;
+    z-index: 80;
+    align-items: center;
+    justify-content: center;
+  }
+
+  @media (min-width: 1024px) {
+    .aob-mobile {
+      display: none;
+    }
+  }
+
+  .aob-mobile-seal {
+    width: 46px;
+    height: 46px;
+    border-radius: 50%;
+    border: 1px solid var(--gold-bright);
+    background: radial-gradient(circle at 35% 30%, #d35400, var(--crimson) 75%);
+    color: var(--ink);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 
+      0 8px 20px -8px #000000a8,
+      0 0 16px -4px color-mix(in srgb, var(--crimson) 60%, transparent);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .aob-mobile-seal:hover {
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 
+      0 12px 26px -10px #000000a8,
+      0 0 24px -4px color-mix(in srgb, var(--crimson) 80%, transparent);
+  }
+
+  .aob-mobile-close {
+    position: absolute;
+    top: -6px;
+    right: -6px;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 35% 30%, var(--gold-bright), var(--gold) 75%);
+    border: 1px solid var(--gold-bright);
+    color: var(--bg-deep);
+    font-size: 0.6rem;
+    font-weight: bold;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+    z-index: 10;
+    transition: transform 0.2s ease;
+  }
+
+  .aob-mobile-close:hover {
+    transform: scale(1.1);
+    background: radial-gradient(circle at 35% 30%, var(--crimson), #8a2724 75%);
+    color: var(--ink);
+  }
+</style>

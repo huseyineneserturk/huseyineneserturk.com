@@ -71,6 +71,10 @@ export const ui = {
     "404.title": "Kayıp Sayfa",
     "404.text": "Aradığın parşömen bu mahzende bulunamadı.",
     "404.home": "Ana Sayfaya Dön",
+    "promo.aob.title": "AGE OF BLOCKS",
+    "promo.aob.subtitle": "Orta Çağ RTS Savaşı",
+    "promo.aob.play": "Hemen Oyna ⚔",
+    "promo.aob.close": "Kapat",
   },
   en: {
     "nav.home": "Home",
@@ -132,6 +136,10 @@ export const ui = {
     "404.title": "Lost Page",
     "404.text": "The parchment you seek was not found in this crypt.",
     "404.home": "Return Home",
+    "promo.aob.title": "AGE OF BLOCKS",
+    "promo.aob.subtitle": "Medieval RTS Battle",
+    "promo.aob.play": "Play Now ⚔",
+    "promo.aob.close": "Dismiss",
   },
 } as const;
 

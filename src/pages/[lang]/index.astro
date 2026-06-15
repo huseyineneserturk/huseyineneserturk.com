@@ -4,6 +4,7 @@ import SectionTitle from "@/components/SectionTitle.astro";
 import ProjectCard from "@/components/ProjectCard.astro";
 import PostCard from "@/components/PostCard.astro";
 import Hero from "@/components/Hero.astro";
+import AgeOfBlocksPromo from "@/components/AgeOfBlocksPromo.astro";
 import { langStaticPaths } from "@/lib/paths";
 import { getProjects, getBlogPosts } from "@/lib/content";
 import { useTranslations, type Lang } from "@/i18n/ui";
@@ -26,6 +27,7 @@ const posts = (await getBlogPosts(lang)).slice(0, 3);
   description={t("site.role")}
 >
   <Hero lang={lang} />
+  <AgeOfBlocksPromo lang={lang} />
 
   {showcase.length > 0 && (
     <section class="block">
