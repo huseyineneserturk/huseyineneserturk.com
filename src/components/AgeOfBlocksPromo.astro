@@ -8,103 +8,15 @@ const t = useTranslations(lang);
 ---
 
 <div class="aob-promo-container" id="aob-promo">
-  <!-- Desktop View: Detailed Armored Gauntlet Arm & Swinging Sign -->
+  <!-- Desktop View: Realistic Knight Gauntlet & Text Overlay -->
   <div class="aob-desktop">
-    <div class="aob-arm-holder">
-      <svg width="240" height="120" viewBox="0 0 240 120" fill="none" class="aob-arm-svg" aria-hidden="true">
-        <defs>
-          <!-- Steel texture gradient (light) -->
-          <linearGradient id="metal-grad" x1="0" y1="0" x2="1" y2="1">
-            <stop offset="0%" stop-color="#cbd5e1" />
-            <stop offset="40%" stop-color="#94a3b8" />
-            <stop offset="80%" stop-color="#64748b" />
-            <stop offset="100%" stop-color="#475569" />
-          </linearGradient>
-          <!-- Steel texture gradient (dark/shadow) -->
-          <linearGradient id="metal-grad-dark" x1="0" y1="0" x2="1" y2="1">
-            <stop offset="0%" stop-color="#475569" />
-            <stop offset="70%" stop-color="#334155" />
-            <stop offset="100%" stop-color="#1e293b" />
-          </linearGradient>
-        </defs>
-
-        <!-- Elbow Couter (Elbow guard) -->
-        <path d="M0 20 C20 10, 35 25, 35 55 C35 85, 20 100, 0 90 Z" fill="url(#metal-grad)" stroke="var(--gold)" stroke-width="1.8" />
-        <path d="M5 25 L25 35 L20 55 L25 75 L5 85" fill="none" stroke="var(--gold-bright)" stroke-width="1.2" opacity="0.7" />
-
-        <!-- Vambrace (Forearm Armor) -->
-        <path d="M35 32 L120 25 L130 55 L120 85 L35 78 Z" fill="url(#metal-grad-dark)" stroke="var(--gold)" stroke-width="1.8" />
-        <!-- Ridge -->
-        <path d="M35 55 H123" stroke="var(--gold-bright)" stroke-width="1.2" opacity="0.6" />
-        <!-- Circuit Glow Line (Codex theme) -->
-        <path d="M45 42 L60 35 H95 L110 42" stroke="var(--circuit)" stroke-width="1.5" stroke-linecap="round" opacity="0.85" class="circuit-glow" />
-        <circle cx="95" cy="35" r="2.5" fill="var(--circuit)" opacity="0.9" />
-
-        <!-- Gold Rivets on Forearm -->
-        <circle cx="50" cy="40" r="2" fill="var(--gold-bright)" stroke="var(--gold)" stroke-width="0.5" />
-        <circle cx="80" cy="38" r="2" fill="var(--gold-bright)" stroke="var(--gold)" stroke-width="0.5" />
-        <circle cx="110" cy="36" r="2" fill="var(--gold-bright)" stroke="var(--gold)" stroke-width="0.5" />
-        <circle cx="50" cy="70" r="2" fill="var(--gold-bright)" stroke="var(--gold)" stroke-width="0.5" />
-        <circle cx="80" cy="72" r="2" fill="var(--gold-bright)" stroke="var(--gold)" stroke-width="0.5" />
-        <circle cx="110" cy="74" r="2" fill="var(--gold-bright)" stroke="var(--gold)" stroke-width="0.5" />
-
-        <!-- Wrist Joint (Overlapping Scale Plates) -->
-        <path d="M120 25 L135 27 L140 55 L135 83 L120 85 Z" fill="url(#metal-grad)" stroke="var(--gold)" stroke-width="1.2" />
-        <path d="M130 27 L143 29 L148 55 L143 81 L130 83 Z" fill="url(#metal-grad-dark)" stroke="var(--gold)" stroke-width="1.2" />
-
-        <!-- Iron Ring (Held in fist, rendered behind fingers) -->
-        <path d="M148 20 C170 20, 170 90, 148 90" stroke="#334155" stroke-width="4.5" fill="none" stroke-linecap="round" />
-        <path d="M148 20 C170 20, 170 90, 148 90" stroke="var(--gold)" stroke-width="1.2" fill="none" stroke-linecap="round" opacity="0.5" />
-
-        <!-- Gauntlet Hand Backplate -->
-        <path d="M143 29 L155 32 L160 55 L155 78 L143 81 Z" fill="url(#metal-grad)" stroke="var(--gold-bright)" stroke-width="1.5" />
-        <path d="M150 35 L158 55 L150 75" stroke="var(--gold)" stroke-width="1" fill="none" opacity="0.7" />
-
-        <!-- Clenched Fingers wrapping around the ring -->
-        <!-- Index Finger -->
-        <path d="M152 32 C168 32, 174 46, 156 48 Z" fill="url(#metal-grad-dark)" stroke="var(--gold)" stroke-width="1.2" />
-        <path d="M154 36 Q166 36 166 40" stroke="#e2e8f0" stroke-width="1" fill="none" opacity="0.6" />
-        <!-- Middle Finger -->
-        <path d="M155 41 C171 41, 177 55, 158 57 Z" fill="url(#metal-grad-dark)" stroke="var(--gold)" stroke-width="1.2" />
-        <path d="M157 45 Q169 45 169 49" stroke="#e2e8f0" stroke-width="1" fill="none" opacity="0.6" />
-        <!-- Ring Finger -->
-        <path d="M153 50 C169 50, 175 64, 156 66 Z" fill="url(#metal-grad-dark)" stroke="var(--gold)" stroke-width="1.2" />
-        <path d="M155 54 Q167 54 167 58" stroke="#e2e8f0" stroke-width="1" fill="none" opacity="0.6" />
-        <!-- Pinky Finger -->
-        <path d="M149 59 C163 59, 169 71, 152 73 Z" fill="url(#metal-grad-dark)" stroke="var(--gold)" stroke-width="1.2" />
-        <!-- Thumb Guard -->
-        <path d="M138 52 Q152 48, 155 58 Q145 66, 138 58 Z" fill="url(#metal-grad)" stroke="var(--gold-bright)" stroke-width="1.2" />
-
-        <!-- Hanging Gold Chains (Interlocking Links) -->
-        <!-- Left Chain -->
-        <ellipse cx="152" cy="91" rx="2.5" ry="6" fill="none" stroke="var(--gold)" stroke-width="1.8" />
-        <rect x="149.5" y="95" width="5" height="3" rx="1" fill="var(--gold-bright)" />
-        <ellipse cx="152" cy="103" rx="2.5" ry="6" fill="none" stroke="var(--gold)" stroke-width="1.8" />
-        <rect x="149.5" y="107" width="5" height="3" rx="1" fill="var(--gold-bright)" />
-        <ellipse cx="152" cy="115" rx="2.5" ry="6" fill="none" stroke="var(--gold)" stroke-width="1.8" />
+    <a href="https://ageofblocks.games" target="_blank" rel="noopener noreferrer" class="aob-link">
+      <div class="aob-card">
+        <!-- High-quality transparent PNG of the armored hand holding the sign -->
+        <img src="/knight_gauntlet_sign.png" alt="Age of Blocks" class="aob-image" loading="eager" />
         
-        <!-- Right Chain -->
-        <ellipse cx="166" cy="88" rx="2.5" ry="6" fill="none" stroke="var(--gold)" stroke-width="1.8" />
-        <rect x="163.5" y="92" width="5" height="3" rx="1" fill="var(--gold-bright)" />
-        <ellipse cx="166" cy="100" rx="2.5" ry="6" fill="none" stroke="var(--gold)" stroke-width="1.8" />
-        <rect x="163.5" y="104" width="5" height="3" rx="1" fill="var(--gold-bright)" />
-        <ellipse cx="166" cy="112" rx="2.5" ry="6" fill="none" stroke="var(--gold)" stroke-width="1.8" />
-      </svg>
-    </div>
-
-    <!-- Sign Board -->
-    <a href="https://ageofblocks.games" target="_blank" rel="noopener noreferrer" class="aob-sign-link">
-      <div class="aob-sign">
-        <div class="aob-sign-inner">
-          <div class="aob-seal-badge">
-            <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M3 21h18" />
-              <path d="M19 21 V8 h-2 V6 h-2 v2 h-2 V6 h-2 v2 h-2 V6 H7 v2 H5 V21" />
-              <path d="M10 21v-4a2 2 0 0 1 4 0v4" />
-              <path d="M12 10v4" />
-              <path d="M10 12h4" />
-            </svg>
-          </div>
+        <!-- Text overlay precisely positioned over the blank wooden sign area -->
+        <div class="aob-sign-overlay">
           <h4 class="aob-title">{t("promo.aob.title")}</h4>
           <p class="aob-subtitle">{t("promo.aob.subtitle")}</p>
           <span class="aob-btn">{t("promo.aob.play")}</span>
@@ -113,7 +25,7 @@ const t = useTranslations(lang);
     </a>
   </div>
 
-  <!-- Mobile View: Floating Wax Seal Badge -->
+  <!-- Mobile View: Floating Crimson Wax Seal Badge -->
   <div class="aob-mobile">
     <a href="https://ageofblocks.games" target="_blank" rel="noopener noreferrer" class="aob-mobile-seal" aria-label={t("promo.aob.title")}>
       <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
@@ -131,7 +43,7 @@ const t = useTranslations(lang);
   .aob-promo-container {
     position: fixed;
     left: 0;
-    top: 35%;
+    top: 25%;
     z-index: 95;
     pointer-events: none;
   }
@@ -141,9 +53,10 @@ const t = useTranslations(lang);
     display: none;
     pointer-events: auto;
     position: relative;
-    width: 270px;
-    /* Translate left so arm sleeve is offscreen, fist and chains peek out slightly */
-    transform: translateX(-150px);
+    width: 380px;
+    height: 380px;
+    /* Translate left so the arm is offscreen, and the right half of the wood sign is peeking out */
+    transform: translateX(-205px);
     transition: transform 0.5s cubic-bezier(0.19, 1, 0.22, 1);
   }
 
@@ -158,109 +71,86 @@ const t = useTranslations(lang);
     transform: translateX(0);
   }
 
-  /* Arm SVG holder */
-  .aob-arm-holder {
-    width: 240px;
-    height: 120px;
-    filter: drop-shadow(0 6px 12px rgba(0, 0, 0, 0.5));
-  }
-
-  /* Circuit Glow Line Animation */
-  .circuit-glow {
-    stroke-dasharray: 8 40;
-    animation: flow 3s linear infinite;
-  }
-  
-  @keyframes flow {
-    to { stroke-dashoffset: -48; }
-  }
-
-  /* Sign Link */
-  .aob-sign-link {
+  .aob-link {
     display: block;
-    position: absolute;
-    top: 102px; /* Hangs below the hand */
-    left: 74px; /* Aligned with gauntlet fist */
-    width: 165px;
-    perspective: 800px;
-    cursor: pointer;
+    width: 100%;
+    height: 100%;
+    text-decoration: none;
   }
 
-  /* The Sign Board */
-  .aob-sign {
+  .aob-card {
     position: relative;
-    background: radial-gradient(circle at 50% 50%, var(--surface-solid), var(--bg-deep));
-    border: 2px solid var(--gold);
-    border-radius: 4px;
-    padding: 0.8rem 0.5rem;
-    box-shadow: 
-      0 10px 25px -10px rgba(0, 0, 0, 0.8),
-      0 0 15px -3px color-mix(in srgb, var(--gold) 35%, transparent),
-      inset 0 0 10px rgba(0, 0, 0, 0.6);
-    text-align: center;
-    transform-origin: top center;
-    transition: box-shadow 0.3s ease, border-color 0.3s ease;
-    animation: gentle-sway 3.5s ease-in-out infinite alternate;
+    width: 100%;
+    height: 100%;
+    /* Swing center is at the shoulder/arm entrance point at top-left of card */
+    transform-origin: 10% 20%;
+    transition: transform 0.5s cubic-bezier(0.19, 1, 0.22, 1);
   }
 
-  /* Faster swinging on hover to simulate momentum */
-  .aob-desktop:hover .aob-sign {
-    animation: slide-swing-in 1.4s ease-out 1 forwards, gentle-sway 3.5s ease-in-out 1.4s infinite alternate;
-    border-color: var(--gold-bright);
-    box-shadow: 
-      0 12px 30px -8px rgba(0, 0, 0, 0.9),
-      0 0 25px -2px color-mix(in srgb, var(--gold-bright) 65%, transparent),
-      inset 0 0 15px rgba(0, 0, 0, 0.5);
+  /* When hovered, trigger the physical arm sway animation */
+  .aob-desktop:hover .aob-card {
+    animation: arm-sway 4s ease-in-out infinite alternate;
   }
 
-  @keyframes slide-swing-in {
-    0% { transform: rotate(0deg); }
-    25% { transform: rotate(-8deg); }
-    50% { transform: rotate(6deg); }
-    75% { transform: rotate(-3deg); }
-    100% { transform: rotate(0deg); }
+  @keyframes arm-sway {
+    0% { transform: rotate(-0.5deg); }
+    100% { transform: rotate(1.5deg); }
   }
 
-  @keyframes gentle-sway {
-    0% { transform: rotate(-2.5deg); }
-    100% { transform: rotate(2.5deg); }
+  .aob-image {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    pointer-events: none;
+    filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.6));
   }
 
-  .aob-sign-inner {
+  /* Sign Overlay Box - positioned directly on the blank wooden sign of the image */
+  .aob-sign-overlay {
+    position: absolute;
+    left: 44.5%;
+    top: 53.5%;
+    width: 50.5%;
+    height: 33.5%;
+    /* The sign is slightly tilted, so we rotate the text box to align with the wood grains */
+    transform: rotate(-1.2deg);
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 0.3rem;
-  }
-
-  .aob-seal-badge {
-    color: var(--gold-bright);
-    margin-bottom: 0.1rem;
-    filter: drop-shadow(0 0 4px var(--gold));
+    justify-content: center;
+    gap: 0.25rem;
+    padding: 0.4rem 0.6rem;
+    text-align: center;
+    box-sizing: border-box;
   }
 
   .aob-title {
     font-family: var(--font-display);
-    font-size: 0.9rem;
+    font-size: 1.05rem;
     font-weight: 700;
     letter-spacing: 0.05em;
     color: var(--ink);
     margin: 0;
-    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.6);
+    line-height: 1.1;
+    text-shadow: 
+      1px 1px 3px rgba(0, 0, 0, 0.9),
+      0 0 5px rgba(0, 0, 0, 0.6);
   }
 
   .aob-subtitle {
     font-family: var(--font-serif);
-    font-size: 0.7rem;
+    font-size: 0.72rem;
     font-style: italic;
     color: var(--ink-soft);
     margin: 0;
-    line-height: 1.25;
+    line-height: 1.2;
+    text-shadow: 
+      1px 1px 2px rgba(0, 0, 0, 0.9);
   }
 
   .aob-btn {
     display: inline-block;
-    margin-top: 0.4rem;
+    margin-top: 0.35rem;
     font-family: var(--font-mono);
     font-size: 0.65rem;
     font-weight: bold;
@@ -268,14 +158,16 @@ const t = useTranslations(lang);
     background: radial-gradient(circle at 35% 30%, var(--gold-bright), var(--gold) 75%);
     border: 1px solid var(--gold-bright);
     border-radius: 2px;
-    padding: 0.25rem 0.5rem;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.4);
+    padding: 0.2rem 0.5rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
     transition: transform 0.2s ease, box-shadow 0.2s ease;
   }
 
   .aob-desktop:hover .aob-btn {
     transform: scale(1.05);
-    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.5), 0 0 10px rgba(240, 210, 122, 0.4);
+    box-shadow: 
+      0 3px 8px rgba(0, 0, 0, 0.6), 
+      0 0 10px rgba(240, 210, 122, 0.4);
   }
 
   /* Mobile View: Wax Seal Badge */
